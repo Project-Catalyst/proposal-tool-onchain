@@ -1,0 +1,84 @@
+@import "bulma/sass/utilities/_all";
+
+$white: #ffffff;
+$primary: #28375e;
+$primary-light: findLightColor($primary);
+$primary-dark: #202d4c;
+$primary-invert: findColorInvert($primary);
+$link: #3f68cc;
+$success: #33a13b;
+$warning: #edab0c;
+$danger: #de1461;
+$text: #202c4b;
+$content-heading-color: $text;
+$label-color: $text;
+$title-color: $text;
+$subtitle-color: $text;
+
+$custom-colors: null !default;
+$custom-shades: null !default;
+
+$colors: mergeColorMaps(
+  (
+    "white": (
+      $white,
+      $black,
+    ),
+    "black": (
+      $black,
+      $white,
+    ),
+    "light": (
+      $light,
+      $light-invert,
+    ),
+    "dark": (
+      $dark,
+      $dark-invert,
+    ),
+    "primary": (
+      $primary,
+      $primary-invert,
+      $primary-light,
+      $primary-dark,
+    ),
+    "link": (
+      $link,
+      $link-invert,
+      $link-light,
+      $link-dark,
+    ),
+    "info": (
+      $info,
+      $info-invert,
+      $info-light,
+      $info-dark,
+    ),
+    "success": (
+      $success,
+      $success-invert,
+      $success-light,
+      $success-dark,
+    ),
+    "warning": (
+      $warning,
+      $warning-invert,
+      $warning-light,
+      $warning-dark,
+    ),
+    "danger": (
+      $danger,
+      $danger-invert,
+      $danger-light,
+      $danger-dark,
+    ),
+  ),
+  $custom-colors
+);
+
+// Links
+$link-invert: findColorInvert($link);
+$link-focus-border: $link;
+
+@import "bulma/bulma";
+@import "@oruga-ui/theme-bulma/dist/scss/bulma";

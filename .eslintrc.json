@@ -1,0 +1,48 @@
+{
+  "root": true,
+  "env": {
+    "node": true,
+    "browser": true,
+    "es6": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:vue/vue3-recommended"
+  ],
+  "plugins": [
+    "vue"
+  ],
+  "rules": {
+    "comma-dangle": [
+      "warn",
+      "always-multiline"
+    ],
+    "indent": [
+      "warn",
+      2
+    ],
+    "max-len": [
+      "warn",
+      {
+        "code": 110,
+        "tabWidth": 2
+      }
+    ],
+    "no-console": "warn",
+    "no-debugger": "warn",
+    "no-unreachable": "warn",
+    "no-unused-vars": "warn",
+    "object-curly-spacing": [
+      "warn",
+      "always"
+    ],
+    "quotes": [
+      "warn",
+      "double"
+    ],
+    "semi": [
+      "warn",
+      "always"
+    ]
+  }
+}

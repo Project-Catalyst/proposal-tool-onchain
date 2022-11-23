@@ -1,7 +1,7 @@
 <template>
-  <page-wrapper>
+  <wrapper-page>
     <content-home />
-  </page-wrapper>
+  </wrapper-page>
 </template>
 
 <script setup>

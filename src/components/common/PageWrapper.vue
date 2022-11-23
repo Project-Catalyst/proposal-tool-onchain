@@ -33,8 +33,8 @@
 </template>
 
 <script setup>
-import compact from  "lodash/compact";
 import { useTitle } from "@vueuse/core";
+import compact from  "lodash/compact";
 
 const props = defineProps({
   title: {

@@ -10,6 +10,7 @@
     "plugin:vue/vue3-recommended"
   ],
   "plugins": [
+    "simple-import-sort",
     "vue"
   ],
   "rules": {
@@ -36,6 +37,8 @@
       "warn",
       "always"
     ],
+    "simple-import-sort/imports": "warn",
+    "simple-import-sort/exports": "warn",
     "quotes": [
       "warn",
       "double"

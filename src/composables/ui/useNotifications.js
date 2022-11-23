@@ -1,4 +1,5 @@
 import { NotificationProgrammatic } from "@oruga-ui/oruga-next";
+
 import { mix } from "@/utils";
 
 const defaultNotificationOptions = {

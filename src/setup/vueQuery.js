@@ -1,4 +1,5 @@
 import { VueQueryPlugin } from "@tanstack/vue-query";
+
 import { useNotifications } from "@/composables";
 
 export default function setupVueQuery(app) {

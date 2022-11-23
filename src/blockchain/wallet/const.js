@@ -1,0 +1,1 @@
+export const COMPATIBLE_WALLETS = import.meta.env.VITE_COMPATIBLE_WALLETS;

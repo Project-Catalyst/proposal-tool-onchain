@@ -27,9 +27,23 @@
         <span aria-hidden="true" />
       </a>
     </div>
+
+    <div
+      id="app-navbar"
+      class="navbar-menu"
+    >
+      <div class="navbar-start">
+        <span class="navbar-item">
+          <button-wallet />
+        </span>
+      </div>
+    </div>
   </nav>
 </template>
 
+<script setup>
+import ButtonWallet from "@/components/controls/ButtonWallet.vue";
+</script>
 
 <style lang="scss">
 @import '@/assets/style/theme.scss';

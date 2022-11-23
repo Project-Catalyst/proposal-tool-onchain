@@ -1,0 +1,10 @@
+@import "@/assets/style/theme.scss";
+
+a.dropdown-item {
+  color: $text !important;
+  background: none !important;
+
+  &:hover {
+    background-color: $white-ter !important;
+  }
+}

@@ -1,10 +1,28 @@
 @import "@/assets/style/theme.scss";
 
-a.dropdown-item {
-  color: $text !important;
-  background: none !important;
+#app {
+  & > nav.navbar {
+    .navbar-brand {
+      min-width: 130px;
 
-  &:hover {
-    background-color: $white-ter !important;
+      .navbar-item {
+        background: transparent !important;
+      }
+    }
+
+    .navbar-end {
+      &:last-child {
+        margin-right: 0.75rem;
+      }
+    }
+
+    a.dropdown-item {
+      color: $text !important;
+      background: none !important;
+
+      &:hover {
+        background-color: $white-ter !important;
+      }
+    }
   }
 }

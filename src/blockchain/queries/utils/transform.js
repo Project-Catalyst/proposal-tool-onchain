@@ -28,6 +28,7 @@ export function transformFundsList(metadata, now) {
 
   return {
     ...transformMetadata(metadata),
+    title: metadata.json.payload.fundGenesis.title,
     fundHashCompact: compactString(metadata.json.payload.fundHash),
     activityPeriod,
     activityPeriodVerbose: activityPeriod === -1 ? "past" : activityPeriod === 0 ? "current" : "future",

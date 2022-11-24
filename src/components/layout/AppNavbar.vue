@@ -6,7 +6,7 @@
   >
     <div class="navbar-brand">
       <router-link
-        :to="{ name: 'Home' }"
+        :to="{ name: 'home' }"
         class="navbar-item"
       >
         <img
@@ -37,22 +37,19 @@
           <button-wallet />
         </span>
       </div>
+
+      <div class="navbar-end">
+        <navbar-link
+          :to="{name: 'funds:selected'}"
+        >
+          Fund
+        </navbar-link>
+      </div>
     </div>
   </nav>
 </template>
 
 <script setup>
 import ButtonWallet from "@/components/controls/ButtonWallet.vue";
+import NavbarLink from "@/components/layout/NavbarLink.vue";
 </script>
-
-<style lang="scss">
-@import '@/assets/style/theme.scss';
-
-.navbar-brand {
-  min-width: 130px;
-
-  .navbar-item {
-    background: transparent !important;
-  }
-}
-</style>

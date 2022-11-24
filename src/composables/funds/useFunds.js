@@ -5,7 +5,7 @@ import { computed } from "vue";
 import { OPERABLE_STAGES } from "@/blockchain/const";
 import { fundsQuery } from "@/blockchain/queries";
 import { transformFundsList } from "@/blockchain/queries/utils";
-import { useTick } from "@/composables/utils";
+import { useTick } from "@/composables";
 
 function toHashMap(hashMap, fund) {
   hashMap[fund.fundHash] = fund;

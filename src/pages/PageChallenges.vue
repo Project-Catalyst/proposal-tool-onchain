@@ -1,11 +1,11 @@
 <template>
   <wrapper-page
-    title="Current Fund"
+    title="Challenges"
     :subtitle="fund?.title"
     :is-loading="isLoading"
     :is-empty="isEmpty"
   >
-    <fund-genesis :fund-hash="hash" />
+    <table-challenges />
 
     <template #empty>
       <no-selected-fund />
@@ -15,10 +15,10 @@
 
 <script setup>
 import { fundsQuery } from "@/blockchain/queries";
-import FundGenesis from "@/components/info/FundGenesis.vue";
+import TableChallenges from "@/components/tables/TableChallenges.vue";
 import NoSelectedFund from "@/components/warnings/NoSelectedFund.vue";
 import { useSelectedFund } from "@/composables";
 
 const { isLoading } = fundsQuery();
-const { isNotSelected: isEmpty, fund, hash } = useSelectedFund();
+const { isNotSelected: isEmpty, fund } = useSelectedFund();
 </script>

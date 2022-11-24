@@ -39,10 +39,12 @@
       </div>
 
       <div class="navbar-end">
-        <navbar-link
-          :to="{name: 'funds:selected'}"
-        >
+        <navbar-link :to="{name: 'funds:selected'}">
           Fund
+        </navbar-link>
+
+        <navbar-link :to="{name: 'challenges'}">
+          Challenges
         </navbar-link>
       </div>
     </div>

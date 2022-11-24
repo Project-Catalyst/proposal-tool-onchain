@@ -5,17 +5,19 @@ import values from "lodash/values";
 import { defineStore } from "pinia";
 import { ref, watch } from "vue";
 
+import { fundsQuery } from "@/blockchain/queries";
 import { useFunds } from "@/composables";
 
 export default defineStore(
   "funds",
   () => {
     const funds = useFunds();
+    const query = fundsQuery();
 
     const selectedFundHash = ref("");
 
     watch(
-      [selectedFundHash, funds.query.isSuccess, funds.selectable],
+      [selectedFundHash, query.isSuccess, funds.selectable],
       ([hash, isSuccess, selectable]) => {
         if (isSuccess) {
           if (!keys(selectable).includes(hash)) {

@@ -34,8 +34,6 @@ export default function useFunds() {
   }
 
   return {
-    query,
-
     all,
     hashes,
     selectable,

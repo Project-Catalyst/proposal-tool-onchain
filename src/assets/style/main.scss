@@ -11,8 +11,12 @@
     }
 
     .navbar-end {
-      &:last-child {
-        margin-right: 0.75rem;
+      & > .navbar-item {
+        margin-right: 0.5rem;
+
+        &:last-child {
+          margin-right: 0.75rem;
+        }
       }
     }
 

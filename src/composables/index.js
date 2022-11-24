@@ -1,3 +1,4 @@
+export * from "./challenges";
 export * from "./funds";
 export * from "./tx";
 export * from "./ui";

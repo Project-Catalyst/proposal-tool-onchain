@@ -40,6 +40,7 @@
 import { useClipboard } from "@vueuse/core";
 import { computed } from "vue";
 
+import { fundsQuery } from "@/blockchain/queries";
 import { useDownload, useFunds } from "@/composables";
 
 const props = defineProps({
@@ -53,12 +54,11 @@ const props = defineProps({
   },
 });
 
-const funds = useFunds();
-
-const { isLoading } = funds.query;
-
-const fundGenesis = computed(() => funds.getByHash(props.fundHash)?.fundGenesis);
-
 const { copy, copied } = useClipboard({ legacy: true });
 const { toJson } = useDownload();
+
+const { getByHash } = useFunds();
+const { isLoading } = fundsQuery();
+
+const fundGenesis = computed(() => getByHash(props.fundHash)?.fundGenesis);
 </script>

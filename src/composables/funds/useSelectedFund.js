@@ -9,9 +9,11 @@ export default function useSelectedFund() {
   const { selectedFundHash: hash } = storeToRefs(fundsStore);
 
   const fund = computed(() => fundsStore.funds.getByHash(hash.value) || null);
+  const isNotSelected = computed(() => !fund.value);
 
   return {
     hash,
     fund,
+    isNotSelected,
   };
 }

@@ -23,5 +23,5 @@ const props = defineProps({
 
 const route = useRoute();
 
-const isActive = computed(() => props.to.name === route.name);
+const isActive = computed(() => route.name?.startsWith(props.to.name));
 </script>

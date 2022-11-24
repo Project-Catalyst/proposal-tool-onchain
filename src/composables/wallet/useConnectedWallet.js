@@ -3,22 +3,28 @@ import { computed } from "vue";
 
 import ConnectedWallet from "@/components/info/ConnectedWallet.vue";
 import { useModal } from "@/composables";
-import { useWalletStore } from "@/stores";
+import { useTxConfirmationStore, useWalletStore } from "@/stores";
 
 export default function useConnectedWallet() {
   const modal = useModal();
+
   const walletStore = useWalletStore();
+  const txConfirmationStore = useTxConfirmationStore();
 
   const {
     selectedWalletKey: key,
     selectedWalletNetworkId: networkId,
     selectedWalletStakeAddress: stakeAddress,
+    isSelectedWalletBusy,
   } = storeToRefs(walletStore);
+
+  const { confirmingTxHash } = storeToRefs(txConfirmationStore);
 
   const { selectedWalletProps: props, selectedWalletApi: api } = storeToRefs(walletStore);
 
   const isConnected = computed(() => !!api.value);
   const isReady = computed(() => isConnected.value && networkId.value >= 0 && !!stakeAddress.value);
+  const isBusy = computed(() => isSelectedWalletBusy.value || !!confirmingTxHash.value);
 
   function showInfo() {
     modal.openComponent(ConnectedWallet, {
@@ -35,6 +41,8 @@ export default function useConnectedWallet() {
 
     isConnected,
     isReady,
+    isBusy,
+
     showInfo,
   };
 }

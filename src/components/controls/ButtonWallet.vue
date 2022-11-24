@@ -65,6 +65,7 @@
       <dropdown-button
         variant="success"
         :is-active="active"
+        :is-loading="isBusy"
         :size="props.size"
       >
         {{ buttonLabel }}
@@ -85,6 +86,7 @@
 
     <o-dropdown-item
       aria-role="listitem"
+      :disabled="isBusy"
       @click="disconnect"
     >
       Disconnect
@@ -108,7 +110,7 @@ const props = defineProps({
 });
 
 const { availableKeys, isConnecting, connect, disconnect } = useWalletConnector();
-const { isConnected, isReady, key, showInfo } = useConnectedWallet();
+const { isBusy, isConnected, isReady, key, showInfo } = useConnectedWallet();
 
 const buttonLabel = computed(() => {
   return (

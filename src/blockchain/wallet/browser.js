@@ -1,4 +1,4 @@
-import { COMPATIBLE_WALLETS } from "./const";
+import { COMPATIBLE_WALLETS_KEYS } from "./const";
 
 function getCardanoWalletsObject() {
   const wallets = window.cardano;
@@ -17,7 +17,7 @@ export function getWalletObject(key) {
 }
 
 export function getCompatibleWalletsKeys() {
-  return COMPATIBLE_WALLETS.split(/\W+/).map((key) => key.trim());
+  return COMPATIBLE_WALLETS_KEYS;
 }
 
 export function getAvailableWalletsKeys() {

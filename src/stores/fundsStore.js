@@ -43,7 +43,6 @@ export default defineStore(
     }
 
     return {
-      funds,
       selectedFundHash,
       autoselect,
     };

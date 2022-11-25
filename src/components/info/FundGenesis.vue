@@ -1,64 +1,17 @@
 <template>
-  <div class="is-relative">
-    <o-loading
-      v-if="props.checkLoading"
-      v-model:active="isLoading"
-      :full-page="false"
-    >
-      <icon-loading />
-    </o-loading>
+  <buttons-save
+    :source="props.genesis"
+    :file-name="props.genesis?.title"
+  />
 
-    <div class="block buttons">
-      <o-button
-        :icon-left="copied ? 'check' : 'clipboard'"
-        :variant="copied ? 'success' : 'info'"
-        @click="copy(JSON.stringify(fundGenesis, null, 2))"
-      >
-        <span v-if="!copied">
-          Copy to clipboard
-        </span>
-
-        <span v-else>
-          Copied!
-        </span>
-      </o-button>
-
-      <o-button
-        variant="info"
-        icon-left="file-download"
-        @click="toJson(fundGenesis, fundGenesis.title)"
-      >
-        Save to file
-      </o-button>
-    </div>
-
-    <pre class="block">{{ fundGenesis }}</pre>
-  </div>
+  <pre class="block">{{ props.genesis }}</pre>
 </template>
 
 <script setup>
-import { useClipboard } from "@vueuse/core";
-import { computed } from "vue";
-
-import { fundsQuery } from "@/blockchain/queries";
-import { useDownload, useFunds } from "@/composables";
-
 const props = defineProps({
-  fundHash: {
-    type: String,
+  genesis: {
+    type: Object,
     required: true,
   },
-  checkLoading: {
-    type: Boolean,
-    default: false,
-  },
 });
-
-const { copy, copied } = useClipboard({ legacy: true });
-const { toJson } = useDownload();
-
-const { getByHash } = useFunds();
-const { isLoading } = fundsQuery();
-
-const fundGenesis = computed(() => getByHash(props.fundHash)?.fundGenesis);
 </script>

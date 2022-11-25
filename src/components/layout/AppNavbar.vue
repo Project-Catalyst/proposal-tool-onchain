@@ -39,11 +39,11 @@
       </div>
 
       <div class="navbar-end">
-        <navbar-link :to="{name: 'funds:selected'}">
-          Fund
+        <navbar-link :to="{name: 'funds:fundDetails', params: {fundHash: 'current'}}">
+          Current Fund
         </navbar-link>
 
-        <navbar-link :to="{name: 'challenges'}">
+        <navbar-link :to="{name: 'challenges', params: {fundHash: 'current'}}">
           Challenges
         </navbar-link>
       </div>

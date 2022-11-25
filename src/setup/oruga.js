@@ -1,6 +1,7 @@
 import {
   Config,
   OButton,
+  OCheckbox,
   ODropdown,
   ODropdownItem,
   OField,
@@ -18,6 +19,7 @@ import { bulmaConfig } from "@oruga-ui/theme-bulma";
 
 export default function setupOruga(app) {
   app.component("OButton", OButton);
+  app.component("OCheckbox", OCheckbox);
   app.component("ODropdown", ODropdown);
   app.component("ODropdownItem", ODropdownItem);
   app.component("OField", OField);

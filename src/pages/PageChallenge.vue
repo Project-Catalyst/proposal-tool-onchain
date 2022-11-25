@@ -5,32 +5,50 @@
     :is-loading="isLoading"
     :is-empty="isEmpty"
   >
+    <nav
+      class="breadcrumb"
+      aria-label="breadcrumbs"
+    >
+      <ul>
+        <li>
+          <router-link :to="{ name: 'challenges', params: { fundHash } }">
+            Challenges
+          </router-link>
+        </li>
+
+        <li class="is-active">
+          <a
+            href="#"
+            aria-current="page"
+          >
+            {{ challenge.title }}
+          </a>
+        </li>
+      </ul>
+    </nav>
+
     <challenge-details :challenge="challenge" />
 
     <template #empty>
-      <no-selected-fund />
+      <no-selected-fund v-if="fundIsNotSelected" />
+      <fund-not-found v-else-if="!fundExists" />
+      <challenge-not-found v-else />
     </template>
   </wrapper-page>
 </template>
 
 <script setup>
 import { computed } from "vue";
-import { useRoute } from "vue-router";
 
 import { fundsQuery } from "@/blockchain/queries";
 import ChallengeDetails from "@/components/info/ChallengeDetails.vue";
+import ChallengeNotFound from "@/components/warnings/ChallengeNotFound.vue";
+import FundNotFound from "@/components/warnings/FundNotFound.vue";
 import NoSelectedFund from "@/components/warnings/NoSelectedFund.vue";
-import { useChallenges, useSelectedFund } from "@/composables";
+import { useChallengeParamPage } from "@/composables";
 
-const route = useRoute();
-const { id } = route.params;
-
-const { ids, getById } = useChallenges();
-const selectedFund = useSelectedFund();
+const { challengeExists, challenge, fundHash, fundExists, fundIsNotSelected } = useChallengeParamPage();
 
 const { isLoading } = fundsQuery();
-
-const isEmpty = computed(() => !isLoading.value && (!selectedFund.fund.value || !ids.value.includes(+id)));
-
-const challenge = getById(+id);
+const isEmpty = computed(() => !fundExists.value || !challengeExists.value);
 </script>

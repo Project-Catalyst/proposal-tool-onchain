@@ -1,11 +1,15 @@
 <template>
   <wrapper-page
-    title="Challenges"
+    title="Fund"
     :subtitle="genesis?.title"
     :is-loading="isLoading"
     :is-empty="isEmpty"
   >
-    <table-challenges :fund-hash="fundHash" />
+    <h3 class="title is-5">
+      Genesis JSON
+    </h3>
+
+    <fund-genesis :genesis="genesis" />
 
     <template #empty>
       <no-selected-fund v-if="fundIsNotSelected" />
@@ -18,12 +22,12 @@
 import { computed } from "vue";
 
 import { fundsQuery } from "@/blockchain/queries";
-import TableChallenges from "@/components/tables/TableChallenges.vue";
+import FundGenesis from "@/components/info/FundGenesis.vue";
 import FundNotFound from "@/components/warnings/FundNotFound.vue";
 import NoSelectedFund from "@/components/warnings/NoSelectedFund.vue";
 import { useFundParamPage } from "@/composables";
 
-const { fundHash, fundExists, genesis, fundIsNotSelected } = useFundParamPage();
+const { fundExists, genesis, fundIsNotSelected } = useFundParamPage();
 
 const { isLoading } = fundsQuery();
 const isEmpty = computed(() => !fundExists.value);

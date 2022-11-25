@@ -29,8 +29,12 @@ export default function useFunds() {
       .reduce(toHashMap, {}),
   );
 
+  function exists(hash) {
+    return hashes.value.includes(hash);
+  }
+
   function getByHash(hash) {
-    return all.value.find(({ fundHash }) => fundHash === hash);
+    return all.value.find(({ fundHash }) => fundHash === hash) || null;
   }
 
   return {
@@ -38,6 +42,7 @@ export default function useFunds() {
     hashes,
     selectable,
 
+    exists,
     getByHash,
   };
 }

@@ -2,7 +2,7 @@
   <article class="message is-warning">
     <div class="message-body">
       <p>
-        Fund is not selected
+        404: Fund not found
       </p>
     </div>
   </article>

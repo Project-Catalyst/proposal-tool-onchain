@@ -25,38 +25,16 @@
     Genesis JSON
   </h3>
 
-  <div class="block buttons">
-    <o-button
-      :icon-left="copied ? 'check' : 'clipboard'"
-      :variant="copied ? 'success' : 'info'"
-      @click="copy(JSON.stringify(props.challenge, null, 2))"
-    >
-      <span v-if="!copied">
-        Copy to clipboard
-      </span>
-
-      <span v-else>
-        Copied!
-      </span>
-    </o-button>
-
-    <o-button
-      variant="info"
-      icon-left="file-download"
-      @click="toJson(props.challenge, props.challenge.title)"
-    >
-      Save to file
-    </o-button>
-  </div>
+  <buttons-save
+    :source="props.challenge"
+    :file-name="props.challenge?.title"
+  />
 
   <pre class="block">{{ props.challenge }}</pre>
 </template>
 
 <script setup>
-import { useClipboard } from "@vueuse/core";
-
 import ProposalSchemaItem from "@/components/info/ProposalSchemaItem.vue";
-import { useDownload } from "@/composables";
 import { stringOrArray } from "@/utils";
 
 const props = defineProps({
@@ -65,7 +43,4 @@ const props = defineProps({
     required: true,
   },
 });
-
-const { copy, copied } = useClipboard({ legacy: true });
-const { toJson } = useDownload();
 </script>

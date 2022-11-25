@@ -1,23 +1,28 @@
-import { reactify } from "@vueuse/core";
 import map from "lodash/map";
 import { computed } from "vue";
 
-import { useSelectedFund } from "@/composables";
+import { useFund } from "@/composables";
 
-export default function useChallenges() {
-  const selectedFund = useSelectedFund();
+export default function useChallenges(fundHash) {
+  const { genesis, exists: fundExists } = useFund(fundHash);
 
-  const all = computed(() => selectedFund.fund.value?.fundGenesis.challenges || []);
+  const all = computed(() => genesis.value?.challenges || []);
   const ids = computed(() => map(all.value, "id"));
 
+  function exists(id) {
+    return ids.value.includes(+id);
+  }
+
   function getById(id) {
-    return all.value.find((challenge) => challenge.id === id);
+    return all.value.find((challenge) => challenge.id === +id);
   }
 
   return {
+    fundExists,
     all,
     ids,
 
-    getById: reactify(getById),
+    exists,
+    getById,
   };
 }

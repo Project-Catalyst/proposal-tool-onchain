@@ -1,13 +1,12 @@
 <template>
   <o-button
     tag="router-link"
-    :to="{ name: 'challenges:proposal:create', params: {
-      fundHash: props.fundHashParam,
-      challengeId: props.challengeId,
+    :to="{ name: 'proposals:edit', params: {
+      proposalId: props.proposalId,
     }}"
     :size="props.size"
   >
-    Create proposal
+    Edit proposal
   </o-button>
 </template>
 
@@ -20,11 +19,7 @@ const props = defineProps({
     default: undefined,
     validator: sizePropValidator,
   },
-  fundHashParam: {
-    type: String,
-    required: true,
-  },
-  challengeId: {
+  proposalId: {
     type: String,
     required: true,
   },

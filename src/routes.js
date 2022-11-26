@@ -4,6 +4,8 @@ import PageFund from "@/pages/PageFund.vue";
 import PageHome from "@/pages/PageHome.vue";
 import PageNotFound from "@/pages/PageNotFound.vue";
 import PageProposalCreate from "@/pages/PageProposalCreate.vue";
+import PageProposalEdit from "@/pages/PageProposalEdit.vue";
+import PageProposalsMy from "@/pages/PageProposalsMy.vue";
 
 const routes = [
   {
@@ -32,6 +34,17 @@ const routes = [
     path: "/funds/:fundHash/challenge/:challengeId/new-proposal",
     name: "challenges:proposal:create",
     component: PageProposalCreate,
+  },
+
+  {
+    path: "/proposals/my",
+    name: "proposals:my",
+    component: PageProposalsMy,
+  },
+  {
+    path: "/proposals/:proposalId",
+    name: "proposals:edit",
+    component: PageProposalEdit,
   },
 
   {

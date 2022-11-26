@@ -46,6 +46,10 @@
         <navbar-link :to="{name: 'challenges', params: {fundHash: 'current'}}">
           Challenges
         </navbar-link>
+
+        <navbar-link :to="{name: 'proposals:my'}">
+          My Proposals
+        </navbar-link>
       </div>
     </div>
   </nav>

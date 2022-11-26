@@ -12,7 +12,7 @@
   <div class="block">
     <button-proposal-create
       size="medium"
-      :fund-hash="props.fundHash"
+      :fund-hash-param="props.fundHashParam"
       :challenge-id="props.challenge.id.toString()"
     />
   </div>
@@ -47,7 +47,7 @@ import ProposalSchemaItem from "@/components/info/ProposalSchemaItem.vue";
 import { stringOrArray } from "@/utils";
 
 const props = defineProps({
-  fundHash: {
+  fundHashParam: {
     type: String,
     required: true,
   },

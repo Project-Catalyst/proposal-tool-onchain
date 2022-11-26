@@ -23,5 +23,5 @@ const props = defineProps({
 
 const route = useRoute();
 
-const isActive = computed(() => route.name?.startsWith(props.to.name));
+const isActive = computed(() => route.name?.startsWith(props.to.name.split(":")[0]));
 </script>

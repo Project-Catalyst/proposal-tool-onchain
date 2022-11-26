@@ -11,13 +11,23 @@
     >
       <ul>
         <li>
-          <router-link :to="{ name: 'challenges', params: { fundHash } }">
+          <router-link
+            :to="{
+              name: 'challenges',
+              params: { fundHash: fundHashParam }
+            }"
+          >
             Challenges
           </router-link>
         </li>
 
         <li>
-          <router-link :to="{ name: 'challenges:challengeDetails', params: { fundHash, challengeId } }">
+          <router-link
+            :to="{
+              name: 'challenges:challengeDetails',
+              params: { fundHash: fundHashParam, challengeId }
+            }"
+          >
             {{ challenge.title }}
           </router-link>
         </li>
@@ -33,7 +43,7 @@
       </ul>
     </nav>
 
-    <form-proposal
+    <form-proposal-create
       :fund-hash="fundHash"
       :challenge="challenge"
     />
@@ -50,7 +60,7 @@
 import { computed } from "vue";
 
 import { fundsQuery } from "@/blockchain/queries";
-import FormProposal from "@/components/forms/FormProposal.vue";
+import FormProposalCreate from "@/components/forms/FormProposalCreate.vue";
 import ChallengeNotFound from "@/components/warnings/ChallengeNotFound.vue";
 import FundNotFound from "@/components/warnings/FundNotFound.vue";
 import NoSelectedFund from "@/components/warnings/NoSelectedFund.vue";
@@ -61,6 +71,7 @@ const {
   challengeId,
   challenge,
   fundHash,
+  fundHashParam,
   fundExists,
   fundIsNotSelected,
 } = useChallengeParamPage();

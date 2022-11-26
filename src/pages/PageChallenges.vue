@@ -5,7 +5,7 @@
     :is-loading="isLoading"
     :is-empty="isEmpty"
   >
-    <table-challenges :fund-hash="fundHashParam" />
+    <table-challenges :fund-hash-param="fundHashParam" />
 
     <template #empty>
       <no-selected-fund v-if="fundIsNotSelected" />

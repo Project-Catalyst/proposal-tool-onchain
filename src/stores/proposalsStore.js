@@ -6,19 +6,28 @@ export default defineStore(
   () => {
     const all = ref([]);
 
-    function put(proposal) {
-      if (!proposal.id) {
-        proposal.id = Date.now().toString();
-        all.value.push(proposal);
+    function put(proposalData) {
+      if (!proposalData.id) {
+        proposalData.id = Date.now().toString();
+        all.value.push(proposalData);
       } else {
-        const index = all.value.findIndex(({ id }) => id === proposal.id);
-        all.value.splice(index, 1, proposal);
+        const index = all.value.findIndex(({ id }) => id === proposalData.id);
+        all.value.splice(index, 1, proposalData);
+      }
+    }
+
+    function remove(proposalId) {
+      const index = all.value.findIndex(({ id }) => id === proposalId);
+      if (index !== -1) {
+        all.value.splice(index, 1);
       }
     }
 
     return {
       all,
+
       put,
+      remove,
     };
   },
   {

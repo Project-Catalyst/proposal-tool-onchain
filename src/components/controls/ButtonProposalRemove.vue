@@ -1,18 +1,19 @@
 <template>
   <o-button
-    tag="router-link"
-    :to="{ name: 'challenges:proposal:create', params: {
-      fundHash: props.fundHashParam,
-      challengeId: props.challengeId,
-    }}"
+    outlined
+    variant="danger"
     :size="props.size"
+    @click="onClick"
   >
-    Create proposal
+    Remove proposal
   </o-button>
 </template>
 
 <script setup>
+import { useRouter } from "vue-router";
+
 import { sizePropValidator } from "@/components/common/propValidators";
+import { useProposal } from "@/composables";
 
 const props = defineProps({
   size: {
@@ -20,13 +21,17 @@ const props = defineProps({
     default: undefined,
     validator: sizePropValidator,
   },
-  fundHashParam: {
-    type: String,
-    required: true,
-  },
-  challengeId: {
+  proposalId: {
     type: String,
     required: true,
   },
 });
+
+const router = useRouter();
+const { remove } = useProposal(props.proposalId);
+
+function onClick() {
+  remove();
+  router.push({ name: "proposals:my" });
+}
 </script>

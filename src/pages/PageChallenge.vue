@@ -11,7 +11,7 @@
     >
       <ul>
         <li>
-          <router-link :to="{ name: 'challenges', params: { fundHash } }">
+          <router-link :to="{ name: 'challenges', params: { fundHash: fundHashParam } }">
             Challenges
           </router-link>
         </li>
@@ -28,7 +28,7 @@
     </nav>
 
     <challenge-details
-      :fund-hash="fundHash"
+      :fund-hash-param="fundHashParam"
       :challenge="challenge"
     />
 
@@ -50,7 +50,7 @@ import FundNotFound from "@/components/warnings/FundNotFound.vue";
 import NoSelectedFund from "@/components/warnings/NoSelectedFund.vue";
 import { useChallengeParamPage } from "@/composables";
 
-const { challengeExists, challenge, fundHash, fundExists, fundIsNotSelected } = useChallengeParamPage();
+const { challengeExists, challenge, fundHashParam, fundExists, fundIsNotSelected } = useChallengeParamPage();
 
 const { isLoading } = fundsQuery();
 const isEmpty = computed(() => !fundExists.value || !challengeExists.value);

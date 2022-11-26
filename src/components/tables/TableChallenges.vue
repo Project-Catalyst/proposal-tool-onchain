@@ -15,7 +15,7 @@
     >
       <router-link
         :to="{ name: 'challenges:challengeDetails', params: {
-          fundHash: props.fundHash,
+          fundHash: props.fundHashParam,
           challengeId: data.row.id,
         }}"
       >
@@ -46,7 +46,7 @@
     >
       <button-proposal-create
         size="small"
-        :fund-hash="props.fundHash"
+        :fund-hash-param="props.fundHashParam"
         :challenge-id="data.row.id.toString()"
       />
     </o-table-column>
@@ -59,11 +59,11 @@ import { useChallenges } from "@/composables";
 import { numberVerbose } from "@/utils";
 
 const props = defineProps({
-  fundHash: {
+  fundHashParam: {
     type: String,
     required: true,
   },
 });
 
-const { all } = useChallenges(props.fundHash);
+const { all } = useChallenges(props.fundHashParam);
 </script>

@@ -23,6 +23,23 @@ export default function useFunds() {
 
   const hashes = computed(() => map(all.value, "fundHash"));
 
+  const mapHashTitle = computed(() =>
+    all.value.reduce((acc, fund) => {
+      acc[fund.fundHash] = fund.fundGenesis.title;
+      return acc;
+    }, {}),
+  );
+
+  const mapChallengeTitles = computed(() =>
+    all.value.reduce((acc, fund) => {
+      acc[fund.fundHash] = {};
+      for (const challenge of fund.fundGenesis.challenges) {
+        acc[fund.fundHash][challenge.id] = challenge.title;
+      }
+      return acc;
+    }, {}),
+  );
+
   const selectable = computed(() =>
     all.value
       .filter(({ currentStages }) => intersection(currentStages, OPERABLE_STAGES).length)
@@ -41,6 +58,8 @@ export default function useFunds() {
     all,
     hashes,
     selectable,
+    mapHashTitle,
+    mapChallengeTitles,
 
     exists,
     getByHash,

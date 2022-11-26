@@ -18,7 +18,7 @@ export default function useFund(hash) {
   const isCurrent = computed(() => fundHash.value === selectedFundHash.value);
 
   return {
-    hash,
+    hash: fundHash.value,
     exists,
     instance,
     genesis,

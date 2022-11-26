@@ -14,7 +14,7 @@ export default function useChallenges(fundHash) {
   }
 
   function getById(id) {
-    return all.value.find((challenge) => challenge.id === +id);
+    return all.value.find((challenge) => challenge.id === +id) || null;
   }
 
   return {

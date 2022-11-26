@@ -1,72 +1,27 @@
 <template>
-  <div class="block">
-    <o-field
-      v-for="item in schema"
-      :key="item.label"
-      :label="stringOrArray(item.label)"
-    >
-      <o-checkbox
-        v-if="item.type === 'Boolean'"
-        v-model="formData[item.label]"
-      />
-      <o-input
-        v-else
-        v-model="formData[item.label]"
-      />
-    </o-field>
-  </div>
-
-  <div class="block">
-    <o-button @click="submit">
-      Submit
-    </o-button>
-  </div>
+  <form-vee
+    v-bind="proposalSchema"
+    @submit="onSubmit"
+  />
 </template>
 
 <script setup>
-import isEmpty from "lodash/isEmpty";
-import { computed, onMounted, reactive, watch } from "vue";
-
-import { useChallenges } from "@/composables";
-import { stringOrArray } from "@/utils";
+import { useProposalSchema } from "@/composables";
 
 const props = defineProps({
-  challengeId: {
+  fundHash: {
     type: String,
     required: true,
   },
-  proposalId: {
-    type: String,
-    default: "",
+  challenge: {
+    type: Object,
+    required: true,
   },
 });
 
-const emit = defineEmits({
-  submit: (formData) => !!formData,
-});
+const proposalSchema = useProposalSchema(props.challenge.proposalSchema);
 
-const { getById } = useChallenges();
-
-const challenge = getById(props.challengeId);
-
-const schema = computed(() => challenge.value.proposalSchema);
-
-const formData = reactive({});
-
-watch(schema, () => {
-  if (schema.value && isEmpty(formData)) {
-    schema.value.forEach((item) => {
-      formData[item.label] = item.type === "String" ? "" : item.type === "Number" ? null : false;
-    });
-  }
-}, { immediate: true });
-
-function submit() {
+function onSubmit(formData) {
   console.log(formData);
-  emit("submit", formData);
 }
-
-onMounted(() => {
-  console.log({ challenge: challenge });
-});
 </script>

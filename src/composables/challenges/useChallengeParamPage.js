@@ -6,12 +6,13 @@ export default function useChallengeParamPage() {
   const route = useRoute();
   const challengeId = route.params.challengeId;
 
-  const { fundHash, fundExists, fundIsNotSelected } = useFundParamPage();
+  const { fundHash, fundHashParam, fundExists, fundIsNotSelected } = useFundParamPage();
 
   const { exists: challengeExists, instance: challenge } = useChallenge(fundHash, challengeId);
 
   return {
     fundHash,
+    fundHashParam,
     fundExists,
     fundIsNotSelected,
 

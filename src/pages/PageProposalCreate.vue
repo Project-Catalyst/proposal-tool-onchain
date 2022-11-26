@@ -1,6 +1,6 @@
 <template>
   <wrapper-page
-    title="Challenge"
+    title="New proposal"
     :subtitle="challenge?.title"
     :is-loading="isLoading"
     :is-empty="isEmpty"
@@ -16,18 +16,24 @@
           </router-link>
         </li>
 
+        <li>
+          <router-link :to="{ name: 'challenges:challengeDetails', params: { fundHash, challengeId } }">
+            {{ challenge.title }}
+          </router-link>
+        </li>
+
         <li class="is-active">
           <a
             href="#"
             aria-current="page"
           >
-            {{ challenge.title }}
+            New proposal
           </a>
         </li>
       </ul>
     </nav>
 
-    <challenge-details
+    <form-proposal
       :fund-hash="fundHash"
       :challenge="challenge"
     />
@@ -44,13 +50,20 @@
 import { computed } from "vue";
 
 import { fundsQuery } from "@/blockchain/queries";
-import ChallengeDetails from "@/components/info/ChallengeDetails.vue";
+import FormProposal from "@/components/forms/FormProposal.vue";
 import ChallengeNotFound from "@/components/warnings/ChallengeNotFound.vue";
 import FundNotFound from "@/components/warnings/FundNotFound.vue";
 import NoSelectedFund from "@/components/warnings/NoSelectedFund.vue";
 import { useChallengeParamPage } from "@/composables";
 
-const { challengeExists, challenge, fundHash, fundExists, fundIsNotSelected } = useChallengeParamPage();
+const {
+  challengeExists,
+  challengeId,
+  challenge,
+  fundHash,
+  fundExists,
+  fundIsNotSelected,
+} = useChallengeParamPage();
 
 const { isLoading } = fundsQuery();
 const isEmpty = computed(() => !fundExists.value || !challengeExists.value);

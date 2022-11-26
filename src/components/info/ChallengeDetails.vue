@@ -9,6 +9,14 @@
     </div>
   </article>
 
+  <div class="block">
+    <button-proposal-create
+      size="medium"
+      :fund-hash="props.fundHash"
+      :challenge-id="props.challenge.id.toString()"
+    />
+  </div>
+
   <h3 class="title is-5">
     Proposal Schema
   </h3>
@@ -34,10 +42,15 @@
 </template>
 
 <script setup>
+import ButtonProposalCreate from "@/components/controls/ButtonProposalCreate.vue";
 import ProposalSchemaItem from "@/components/info/ProposalSchemaItem.vue";
 import { stringOrArray } from "@/utils";
 
 const props = defineProps({
+  fundHash: {
+    type: String,
+    required: true,
+  },
   challenge: {
     type: Object,
     required: true,

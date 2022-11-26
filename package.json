@@ -23,9 +23,11 @@
     "pinia-plugin-persistedstate": "^2.3.0",
     "sjcl": "^1.0.8",
     "uuid": "^9.0.0",
+    "vee-validate": "^4.7.3",
     "vue": "^3.2.37",
     "vue-router": "^4.0.13",
-    "web3.storage": "^4.4.0"
+    "web3.storage": "^4.4.0",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.190",

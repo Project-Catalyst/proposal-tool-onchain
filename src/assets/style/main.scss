@@ -29,4 +29,18 @@
       }
     }
   }
+
+  form {
+    .field.required > .label {
+      &::after {
+        content: "*";
+        color: $red;
+        margin-left: 0.2em;
+      }
+    }
+
+    .field > .help {
+      white-space: pre;
+    }
+  }
 }

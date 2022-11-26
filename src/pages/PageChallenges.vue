@@ -5,7 +5,7 @@
     :is-loading="isLoading"
     :is-empty="isEmpty"
   >
-    <table-challenges :fund-hash="fundHash" />
+    <table-challenges :fund-hash="fundHashParam" />
 
     <template #empty>
       <no-selected-fund v-if="fundIsNotSelected" />
@@ -23,7 +23,7 @@ import FundNotFound from "@/components/warnings/FundNotFound.vue";
 import NoSelectedFund from "@/components/warnings/NoSelectedFund.vue";
 import { useFundParamPage } from "@/composables";
 
-const { fundHash, fundExists, genesis, fundIsNotSelected } = useFundParamPage();
+const { fundHashParam, fundExists, genesis, fundIsNotSelected } = useFundParamPage();
 
 const { isLoading } = fundsQuery();
 const isEmpty = computed(() => !fundExists.value);

@@ -44,8 +44,9 @@
       field="addProposal"
       label=""
     >
-      <button-proposal
+      <button-proposal-create
         size="small"
+        :fund-hash="props.fundHash"
         :challenge-id="data.row.id.toString()"
       />
     </o-table-column>
@@ -53,7 +54,7 @@
 </template>
 
 <script setup>
-import ButtonProposal from "@/components/controls/ButtonProposal.vue";
+import ButtonProposalCreate from "@/components/controls/ButtonProposalCreate.vue";
 import { useChallenges } from "@/composables";
 import { numberVerbose } from "@/utils";
 

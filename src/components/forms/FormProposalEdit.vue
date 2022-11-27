@@ -1,5 +1,5 @@
 <template>
-  <form-vee
+  <vee-form
     v-bind="proposalSchema"
     @submit="onSubmit"
   />

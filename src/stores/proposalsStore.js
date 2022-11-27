@@ -12,7 +12,11 @@ export default defineStore(
         all.value.push(proposalData);
       } else {
         const index = all.value.findIndex(({ id }) => id === proposalData.id);
-        all.value.splice(index, 1, proposalData);
+        if (index >= 0) {
+          all.value.splice(index, 1, proposalData);
+        } else {
+          all.value.push(proposalData);
+        }
       }
     }
 
@@ -23,11 +27,16 @@ export default defineStore(
       }
     }
 
+    function clear() {
+      all.value = [];
+    }
+
     return {
       all,
 
       put,
       remove,
+      clear,
     };
   },
   {

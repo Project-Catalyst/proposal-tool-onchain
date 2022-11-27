@@ -1,4 +1,5 @@
 import { storeToRefs } from "pinia";
+import { computed } from "vue";
 
 import { useNotifications } from "@/composables";
 import { useProposalsStore } from "@/stores";
@@ -8,6 +9,8 @@ export default function useProposals() {
   const proposalsStore = useProposalsStore();
 
   const { all } = storeToRefs(proposalsStore);
+
+  const count = computed(() => all.value.length);
 
   function cleanFormData(formData, proposalSchema) {
     const proposalData = {
@@ -49,12 +52,23 @@ export default function useProposals() {
     notifications.success("Proposal removed");
   }
 
+  function importFromJson(json, merge = true) {
+    if (!merge) {
+      proposalsStore.clear();
+    }
+    for (const proposal of json) {
+      proposalsStore.put(proposal);
+    }
+  }
+
   return {
     all,
+    count,
 
     getById,
     create,
     update,
     remove,
+    importFromJson,
   };
 }

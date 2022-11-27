@@ -13,14 +13,7 @@
       field="challengeTitle"
       label="Challenge title"
     >
-      <router-link
-        :to="{ name: 'challenges:challengeDetails', params: {
-          fundHash: data.row.fundHash,
-          challengeId: data.row.challengeId,
-        }}"
-      >
-        {{ mapChallengeTitles[data.row.fundHash][data.row.challengeId] }}
-      </router-link>
+      {{ mapChallengeTitles[data.row.fundHash][data.row.challengeId] }}
     </o-table-column>
 
     <o-table-column

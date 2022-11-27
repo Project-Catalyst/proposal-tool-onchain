@@ -1,3 +1,4 @@
+import map from "lodash/map";
 import { storeToRefs } from "pinia";
 import { computed } from "vue";
 
@@ -9,8 +10,9 @@ export default function useProposals() {
   const proposalsStore = useProposalsStore();
 
   const { all } = storeToRefs(proposalsStore);
-
   const count = computed(() => all.value.length);
+
+  const ids = computed(() => map(all.value, "id"));
 
   function cleanFormData(formData, proposalSchema) {
     const proposalData = {
@@ -64,6 +66,7 @@ export default function useProposals() {
   return {
     all,
     count,
+    ids,
 
     getById,
     create,

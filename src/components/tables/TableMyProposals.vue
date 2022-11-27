@@ -1,5 +1,5 @@
 <template>
-  <o-table :data="all">
+  <o-table :data="proposals">
     <o-table-column
       v-slot="data"
       field="proposalTitle"
@@ -26,6 +26,15 @@
 
     <o-table-column
       v-slot="data"
+      field="status"
+      label="Status"
+    >
+      {{ proposalsPublishedIds.includes(data.row.id) ? 'Published' : 'Not published' }}
+    </o-table-column>
+
+    <o-table-column
+      v-slot="data"
+      position="right"
       field="editProposal"
       label=""
     >
@@ -38,11 +47,10 @@
 </template>
 
 <script setup>
-import { useFunds, useProposals } from "@/composables";
-
-import ButtonProposalEdit from "../controls/ButtonProposalEdit.vue";
-
-const { all } = useProposals();
+import ButtonProposalEdit from "@/components/controls/ButtonProposalEdit.vue";
+import { useFunds, useProposals, useProposalsPublished } from "@/composables";
 
 const { mapChallengeTitles } = useFunds();
+const { all: proposals } = useProposals();
+const { ids: proposalsPublishedIds } = useProposalsPublished();
 </script>

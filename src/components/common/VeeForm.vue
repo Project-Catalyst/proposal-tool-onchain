@@ -22,7 +22,7 @@
           <o-checkbox
             v-if="field.type === 'checkbox'"
             v-model="veeField.value"
-            :class="{'no-pointer-events': props.isLoading}"
+            :class="{'no-pointer-events': props.isLoading || props.isReadOnly}"
             v-bind="veeField"
             indeterminate
           />
@@ -30,14 +30,17 @@
           <o-input
             v-else
             v-model="veeField.value"
-            :readonly="props.isLoading"
+            :readonly="props.isLoading || props.isReadOnly"
             v-bind="veeField"
           />
         </o-field>
       </Field>
     </div>
 
-    <div class="block buttons">
+    <div
+      v-if="!props.isReadOnly"
+      class="block buttons"
+    >
       <o-button
         variant="primary"
         native-type="submit"
@@ -77,6 +80,10 @@ const props = defineProps({
     required: true,
   },
   isLoading: {
+    type: Boolean,
+    default: false,
+  },
+  isReadOnly: {
     type: Boolean,
     default: false,
   },

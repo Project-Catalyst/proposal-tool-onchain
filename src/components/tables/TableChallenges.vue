@@ -42,6 +42,7 @@
     <o-table-column
       v-slot="data"
       field="addProposal"
+      position="right"
       label=""
     >
       <button-proposal-create

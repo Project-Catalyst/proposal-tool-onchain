@@ -1,0 +1,1 @@
+export const WEB3_STORAGE_ACCESS_TOKEN = import.meta.env.VITE_WEB3_STORAGE_ACCESS_TOKEN;

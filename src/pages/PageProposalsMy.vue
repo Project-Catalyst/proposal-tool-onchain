@@ -15,13 +15,18 @@
 </template>
 
 <script setup>
-import { fundsQuery } from "@/blockchain/queries";
+import { computed } from "vue";
+
+import { fundsQuery, publishedProposalsQuery } from "@/blockchain/queries";
 import ButtonProposalsExport from "@/components/controls/ButtonProposalsExport.vue";
 import ButtonProposalsImport from "@/components/controls/ButtonProposalsImport.vue";
 import TableMyProposals from "@/components/tables/TableMyProposals.vue";
 import { useProposals } from "@/composables";
 
-const { isLoading } = fundsQuery();
+const { isLoading: isFundsLoading } = fundsQuery();
+const { isLoading: isProposalsPublishedLoading } = publishedProposalsQuery();
+
 const { count } = useProposals();
 
+const isLoading = computed(() => isFundsLoading.value || isProposalsPublishedLoading.value);
 </script>

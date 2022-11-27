@@ -6,10 +6,7 @@
 </template>
 
 <script setup>
-import get from "lodash/get";
-import { useRouter } from "vue-router";
-
-import { useProposal, useProposalSchema } from "@/composables";
+import { usePreviousPage, useProposal, useProposalSchema } from "@/composables";
 
 const props = defineProps({
   proposalId: {
@@ -18,20 +15,13 @@ const props = defineProps({
   },
 });
 
-const router = useRouter();
+const previousPage = usePreviousPage({ defaultLocation: { name: "proposals:my" } });
 
 const { instance: proposal, challenge, update } = useProposal(props.proposalId);
 const proposalSchema = useProposalSchema(challenge.proposalSchema, proposal);
 
 function onSubmit(formData) {
   update(formData);
-
-  const previousUrl = get(router, "options.history.state.back");
-
-  if (previousUrl) {
-    router.push({ path: previousUrl });
-  } else {
-    router.push({ name: "proposals:my" });
-  }
+  previousPage.go();
 }
 </script>

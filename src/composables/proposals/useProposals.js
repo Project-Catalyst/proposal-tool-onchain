@@ -37,8 +37,8 @@ export default function useProposals() {
     return all.value.find((proposal) => proposal.id === id) || null;
   }
 
-  function create(formData, proposalSchema) {
-    proposalsStore.put(cleanFormData(formData, proposalSchema));
+  async function create(formData, proposalSchema) {
+    await proposalsStore.create(cleanFormData(formData, proposalSchema));
     notifications.success("New proposal created and saved in the local storage");
   }
 

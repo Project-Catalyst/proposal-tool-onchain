@@ -1,15 +1,15 @@
 <template>
   <vee-form
     v-bind="proposalSchema"
+    :is-loading="isLoading"
     @submit="onSubmit"
   />
 </template>
 
 <script setup>
-import get from "lodash/get";
-import { useRouter } from "vue-router";
+import { ref } from "vue";
 
-import { useProposals, useProposalSchema } from "@/composables";
+import { usePreviousPage, useProposals, useProposalSchema } from "@/composables";
 
 const props = defineProps({
   fundHash: {
@@ -22,24 +22,24 @@ const props = defineProps({
   },
 });
 
-const router = useRouter();
+const previousPage = usePreviousPage({ defaultLocation: { name: "proposals:my" } });
 
 const proposals = useProposals();
 const proposalSchema = useProposalSchema(props.challenge.proposalSchema);
 
-function onSubmit(formData) {
-  proposals.create({
+const isLoading = ref(false);
+
+async function onSubmit(formData) {
+  isLoading.value = true;
+
+  await proposals.create({
     fundHash: props.fundHash,
     challengeId: props.challenge.id,
     ...formData,
   }, props.challenge.proposalSchema);
 
-  const previousUrl = get(router, "options.history.state.back");
+  isLoading.value = false;
 
-  if (previousUrl) {
-    router.push({ path: previousUrl });
-  } else {
-    router.push({ name: "proposals:my" });
-  }
+  previousPage.go();
 }
 </script>

@@ -1,22 +1,33 @@
+import { md5 } from "hash-wasm";
 import { defineStore } from "pinia";
 import { ref } from "vue";
+
+import { currentBlock } from "@/blockchain/queries";
+
+async function genId(proposalData) {
+  const block = await currentBlock();
+  const blockHash = block.hash.slice(2);
+  const proposalTitle = proposalData["Proposal title"];
+  const proposalAuthor = proposalData["Author"];
+  return await md5(proposalTitle + proposalAuthor + blockHash);
+}
 
 export default defineStore(
   "proposals",
   () => {
     const all = ref([]);
 
+    async function create(proposalData) {
+      proposalData.id = await genId(proposalData);
+      all.value.push(proposalData);
+    }
+
     function put(proposalData) {
-      if (!proposalData.id) {
-        proposalData.id = Date.now().toString();
-        all.value.push(proposalData);
+      const index = all.value.findIndex(({ id }) => id === proposalData.id);
+      if (index >= 0) {
+        all.value.splice(index, 1, proposalData);
       } else {
-        const index = all.value.findIndex(({ id }) => id === proposalData.id);
-        if (index >= 0) {
-          all.value.splice(index, 1, proposalData);
-        } else {
-          all.value.push(proposalData);
-        }
+        all.value.push(proposalData);
       }
     }
 
@@ -34,6 +45,7 @@ export default defineStore(
     return {
       all,
 
+      create,
       put,
       remove,
       clear,

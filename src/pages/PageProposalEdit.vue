@@ -41,6 +41,11 @@
         :proposal-id="proposalId"
       />
 
+      <button-ipfs-link
+        v-if="isPublished"
+        :cid="cid"
+      />
+
       <button-proposal-withdraw
         v-if="canWithdraw"
         :proposal-id="proposalId"
@@ -54,6 +59,7 @@ import { computed } from "vue";
 import { useRoute } from "vue-router";
 
 import { fundsQuery, proposalsPublishedQuery, proposalsWithdrawnQuery } from "@/blockchain/queries";
+import ButtonIpfsLink from "@/components/common/ButtonIpfsLink.vue";
 import ButtonProposalPublish from "@/components/controls/ButtonProposalPublish.vue";
 import ButtonProposalRemove from "@/components/controls/ButtonProposalRemove.vue";
 import ButtonProposalWithdraw from "@/components/controls/ButtonProposalWithdraw.vue";
@@ -64,7 +70,7 @@ const route = useRoute();
 
 const proposalId = route.params.proposalId;
 
-const { title, canPublish, canWithdraw, isPublished } = useProposal(proposalId);
+const { title, cid, canPublish, canWithdraw, isPublished } = useProposal(proposalId);
 
 const { isLoading: isFundsLoading } = fundsQuery();
 const { isLoading: isProposalsPublishedLoading } = proposalsPublishedQuery();

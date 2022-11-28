@@ -20,6 +20,8 @@ export default function useProposal(proposalId) {
 
   const title = instance["Proposal title"];
 
+  const cid = computed(() => proposalsPublished.getById(proposalId)?.proposalCID);
+
   const isPublished = computed(() => proposalsPublished.ids.value.includes(proposalId));
   const canPublish = computed(
     () => !isPublished.value && fund.value?.currentStages.includes("proposalPublishing"),
@@ -46,6 +48,7 @@ export default function useProposal(proposalId) {
 
   return {
     title,
+    cid,
     instance,
     challenge: challenge.value,
     isPublished,

@@ -2,11 +2,14 @@ import { proposalPublishMutation } from "@/blockchain/mutations";
 import { ipfsUploadMutation } from "@/blockchain/mutations/common";
 import { useNotifications, useProposals, useProposalsPublished, useTxSubmit } from "@/composables";
 import { useWalletStore } from "@/stores";
+import { chunkString } from "@/utils";
 
-function prepareToPublication(proposal) {
+function prepareToPublication(proposal, chunkValues = false) {
   return Object.entries(proposal).reduce((acc, [key, value]) => {
     if (typeof value === "boolean") {
       acc[key] = +value;
+    } else if (typeof value === "string" && chunkValues) {
+      acc[key] = chunkString(value);
     } else if (value !== null && value !== undefined) {
       acc[key] = value;
     }

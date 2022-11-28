@@ -23,8 +23,8 @@
             v-if="field.type === 'checkbox'"
             v-model="veeField.value"
             :class="{'no-pointer-events': props.isLoading || props.isReadOnly}"
+            :indeterminate="props.initialValues[field.name] === undefined"
             v-bind="veeField"
-            indeterminate
           />
 
           <o-input

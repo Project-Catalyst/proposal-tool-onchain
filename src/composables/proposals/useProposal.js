@@ -1,10 +1,17 @@
 import { computed } from "vue";
 
-import { useChallenge, useFund, useProposals, useProposalsPublished } from "@/composables";
+import {
+  useChallenge,
+  useFund,
+  useProposals,
+  useProposalsPublished,
+  useProposalsWithdrawn,
+} from "@/composables";
 
 export default function useProposal(proposalId) {
   const proposals = useProposals();
   const proposalsPublished = useProposalsPublished();
+  const proposalsWithdrawn = useProposalsWithdrawn();
 
   const instance = proposals.getById(proposalId);
 
@@ -17,6 +24,9 @@ export default function useProposal(proposalId) {
   const canPublish = computed(
     () => !isPublished.value && fund.value?.currentStages.includes("proposalPublishing"),
   );
+
+  const isWithdrawn = computed(() => proposalsWithdrawn.ids.value.includes(proposalId));
+  const canWithdraw = computed(() => isPublished.value && !isWithdrawn.value);
 
   function update(formData) {
     proposals.update(
@@ -40,6 +50,8 @@ export default function useProposal(proposalId) {
     challenge: challenge.value,
     isPublished,
     canPublish,
+    isWithdrawn,
+    canWithdraw,
 
     update,
     remove,

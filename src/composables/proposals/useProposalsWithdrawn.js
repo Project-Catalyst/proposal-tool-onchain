@@ -1,11 +1,11 @@
 import map from "lodash/map";
 import { computed } from "vue";
 
-import { proposalsPublishedQuery } from "@/blockchain/queries";
+import { proposalsWithdrawnQuery } from "@/blockchain/queries";
 import { transformMetadata } from "@/blockchain/queries/utils";
 
-export default function useProposalsPublished() {
-  const query = proposalsPublishedQuery();
+export default function useProposalsWithdrawn() {
+  const query = proposalsWithdrawnQuery();
 
   const all = computed(() => query.data.value?.map(transformMetadata) || []);
   const count = computed(() => all.value.count);

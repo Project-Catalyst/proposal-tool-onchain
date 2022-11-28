@@ -17,16 +17,19 @@
 <script setup>
 import { computed } from "vue";
 
-import { fundsQuery, publishedProposalsQuery } from "@/blockchain/queries";
+import { fundsQuery, proposalsPublishedQuery, proposalsWithdrawnQuery } from "@/blockchain/queries";
 import ButtonProposalsExport from "@/components/controls/ButtonProposalsExport.vue";
 import ButtonProposalsImport from "@/components/controls/ButtonProposalsImport.vue";
 import TableMyProposals from "@/components/tables/TableMyProposals.vue";
 import { useProposals } from "@/composables";
 
 const { isLoading: isFundsLoading } = fundsQuery();
-const { isLoading: isProposalsPublishedLoading } = publishedProposalsQuery();
+const { isLoading: isProposalsPublishedLoading } = proposalsPublishedQuery();
+const { isLoading: isProposalsWithdrawnLoading } = proposalsWithdrawnQuery();
 
 const { count } = useProposals();
 
-const isLoading = computed(() => isFundsLoading.value || isProposalsPublishedLoading.value);
+const isLoading = computed(
+  () => isFundsLoading.value || isProposalsPublishedLoading.value || isProposalsWithdrawnLoading.value,
+);
 </script>

@@ -40,16 +40,23 @@
         v-if="canPublish"
         :proposal-id="proposalId"
       />
+
+      <button-proposal-withdraw
+        v-if="canWithdraw"
+        :proposal-id="proposalId"
+      />
     </div>
   </wrapper-page>
 </template>
 
 <script setup>
+import { computed } from "vue";
 import { useRoute } from "vue-router";
 
-import { fundsQuery } from "@/blockchain/queries";
+import { fundsQuery, proposalsPublishedQuery, proposalsWithdrawnQuery } from "@/blockchain/queries";
 import ButtonProposalPublish from "@/components/controls/ButtonProposalPublish.vue";
 import ButtonProposalRemove from "@/components/controls/ButtonProposalRemove.vue";
+import ButtonProposalWithdraw from "@/components/controls/ButtonProposalWithdraw.vue";
 import FormProposalEdit from "@/components/forms/FormProposalEdit.vue";
 import { useProposal } from "@/composables";
 
@@ -57,7 +64,13 @@ const route = useRoute();
 
 const proposalId = route.params.proposalId;
 
-const { title, canPublish, isPublished } = useProposal(proposalId);
+const { title, canPublish, canWithdraw, isPublished } = useProposal(proposalId);
 
-const { isLoading } = fundsQuery();
+const { isLoading: isFundsLoading } = fundsQuery();
+const { isLoading: isProposalsPublishedLoading } = proposalsPublishedQuery();
+const { isLoading: isProposalsWithdrawnLoading } = proposalsWithdrawnQuery();
+
+const isLoading = computed(
+  () => isFundsLoading.value || isProposalsPublishedLoading.value || isProposalsWithdrawnLoading.value,
+);
 </script>

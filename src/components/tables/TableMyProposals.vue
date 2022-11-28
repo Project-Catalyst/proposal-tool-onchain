@@ -29,7 +29,10 @@
       field="status"
       label="Status"
     >
-      {{ proposalsPublishedIds.includes(data.row.id) ? 'Published' : 'Not published' }}
+      {{ proposalsWithdrawnIds.includes(data.row.id)
+        ? 'Withdrawn' : proposalsPublishedIds.includes(data.row.id)
+          ? 'Published' : 'Not published'
+      }}
     </o-table-column>
 
     <o-table-column
@@ -48,9 +51,10 @@
 
 <script setup>
 import ButtonProposalEdit from "@/components/controls/ButtonProposalEdit.vue";
-import { useFunds, useProposals, useProposalsPublished } from "@/composables";
+import { useFunds, useProposals, useProposalsPublished, useProposalsWithdrawn } from "@/composables";
 
 const { mapChallengeTitles } = useFunds();
 const { all: proposals } = useProposals();
 const { ids: proposalsPublishedIds } = useProposalsPublished();
+const { ids: proposalsWithdrawnIds } = useProposalsWithdrawn();
 </script>

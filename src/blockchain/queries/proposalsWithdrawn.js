@@ -6,17 +6,17 @@ import { useConnectedWallet } from "@/composables";
 
 import { getMetadataSelectionUrl } from "./utils";
 
-function fetchPublishedProposals(stakeAddress) {
+function fetchProposalsWithdrawn(stakeAddress) {
   return () =>
     axios
-      .get(getMetadataSelectionUrl("proposalPublication", { "json->>creator": `eq.${stakeAddress.value}` }))
+      .get(getMetadataSelectionUrl("proposalWithdrawal", { "json->>creator": `eq.${stakeAddress.value}` }))
       .then(({ data }) => data);
 }
 
-export default function publishedProposalsQuery() {
+export default function proposalsWithdrawnQuery() {
   const { stakeAddress } = useConnectedWallet();
   const enabled = computed(() => !!stakeAddress.value);
-  return useQuery(["publishedProposals"], fetchPublishedProposals(stakeAddress), {
+  return useQuery(["proposalsWithdrawn"], fetchProposalsWithdrawn(stakeAddress), {
     enabled,
     staleTime: Infinity,
   });

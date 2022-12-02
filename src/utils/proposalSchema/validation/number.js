@@ -28,24 +28,26 @@ export default function getIntegerValidation(fieldDefinition, isInt) {
         );
       }
     } else if (is(validValues)) {
-      if (!multiple) {
-        validation = validation.oneOf(validValues);
-      } else {
-        validation = array().of((isInt ? number().integer() : number()).oneOf(validValues));
-        if (minItems) {
-          if (required) {
-            validation = validation.min(minItems);
-          } else {
-            validation = validation.test(
-              "isEmptyOrMinLength",
-              `this field must be empty or have at least ${minItems} items`,
-              (value) => value.length === 0 || value.length >= minItems,
-            );
-          }
+      validation = validation.oneOf(validValues);
+    }
+
+    if (multiple) {
+      validation = array().of(validation);
+
+      if (minItems) {
+        if (required) {
+          validation = validation.min(minItems);
+        } else {
+          validation = validation.test(
+            "isEmptyOrMinLength",
+            `this field must be empty or have at least ${minItems} items`,
+            (value) => value.length === 0 || value.length >= minItems,
+          );
         }
-        if (maxItems) {
-          validation = validation.max(maxItems);
-        }
+      }
+
+      if (maxItems) {
+        validation = validation.max(maxItems);
       }
     }
   }

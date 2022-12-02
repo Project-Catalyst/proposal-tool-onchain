@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import flatten from "lodash/flatten";
 import isArray from "lodash/isArray";
 import isInteger from "lodash/isInteger";
@@ -11,7 +12,18 @@ const validSchemaPropertyNames = ["codeName", "label", "type", "meta"];
 
 const codeNameRegExp = /^[a-zA-Z][a-zA-Z0-9_]+$/;
 
-const validTypes = ["string", "url", "email", "text", "integer", "float", "decimal", "numrange", "boolean"];
+const validTypes = [
+  "string",
+  "url",
+  "email",
+  "text",
+  "integer",
+  "float",
+  "decimal",
+  "numrange",
+  "boolean",
+  "date",
+];
 
 const commonValidMetaPropertyNames = ["description", "required", "auto", "hidden"];
 
@@ -35,6 +47,7 @@ const mapTypeValidMetaPropertyNames = {
   ],
   numrange: ["min", "max", "step", "minRange", "maxRange"],
   boolean: [],
+  date: ["placeholder", "min", "max", "minFromToday", "maxFromToday", "validValues", "multiple"],
 };
 
 function isNumberBoolean(value) {
@@ -267,6 +280,56 @@ function validateMetaField(fieldDefinition) {
     // 'maxRange' must be greater than 'minRange'
     if (is(minRange) && is(maxRange) && minRange >= maxRange) {
       throw new Error("meta.maxRange must be greater than meta.minRange");
+    }
+  }
+
+  // date type specific meta fields
+  if (type === "date") {
+    const { min, max, minFromToday, maxFromToday, validValues, multiple } = meta;
+
+    // 'min' must be a valid date string
+    if (is(min) && !dayjs(min).isValid()) {
+      throw new Error("Invalid meta.min value");
+    }
+
+    // 'max' must be a valid date string
+    if (is(max) && !dayjs(max).isValid()) {
+      throw new Error("Invalid meta.max value");
+    }
+
+    // 'max' must be greater than 'min'
+    if (is(min) && is(max) && !dayjs(min).isBefore(dayjs(max))) {
+      throw new Error("meta.max must be greater than meta.min");
+    }
+
+    // 'minFromToday' must be an integer
+    if (is(minFromToday) && !isInteger(minFromToday)) {
+      throw new Error("Invalid meta.minFromToday value");
+    }
+
+    // 'maxFromToday' must be an integer
+    if (is(maxFromToday) && !isInteger(maxFromToday)) {
+      throw new Error("Invalid meta.maxFromToday value");
+    }
+
+    // 'maxFromToday' must be greater than 'minFromToday'
+    if (is(minFromToday) && is(maxFromToday) && minFromToday >= maxFromToday) {
+      throw new Error("meta.maxFromToday must be greater than meta.minFromToday");
+    }
+
+    // 'validValues' must be an array of date strings
+    if (is(validValues) && (!isArray(validValues) || !validValues.every((value) => dayjs(value).isValid()))) {
+      throw new Error("Invalid meta.validValues value");
+    }
+
+    // 'min'/'max'/'minFromToday'/'maxFromToday' not mixed with 'validValues'
+    if (is(validValues) && (is(min) || is(max) || is(minFromToday) || is(maxFromToday))) {
+      throw new Error("Ambiguous date validation conditions");
+    }
+
+    // 'multiple' must be either 0 or 1
+    if (is(multiple) && !isNumberBoolean(multiple)) {
+      throw new Error("Invalid meta.multiple value");
     }
   }
 }

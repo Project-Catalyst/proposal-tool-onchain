@@ -8,6 +8,7 @@ const mapTypeInitialValue = {
   decimal: null,
   numrange: [],
   boolean: undefined,
+  date: null,
 };
 
 export default function getInitialValue(fieldDefinition) {
@@ -34,6 +35,10 @@ export default function getInitialValue(fieldDefinition) {
     } else {
       initialValue = [min, max];
     }
+  }
+
+  if (type === "date" && meta?.multiple) {
+    initialValue = [];
   }
 
   return initialValue;

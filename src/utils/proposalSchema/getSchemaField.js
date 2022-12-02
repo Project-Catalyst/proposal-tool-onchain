@@ -1,5 +1,7 @@
+import dayjs from "dayjs";
 import compact from "lodash/compact";
 import fill from "lodash/fill";
+import isInteger from "lodash/isInteger";
 
 import { stringOrArray } from "@/utils";
 
@@ -66,6 +68,36 @@ export default function getSchemaField(fieldDefinition) {
     schemaField.min = meta?.min;
     schemaField.max = meta?.max;
     schemaField.step = meta?.step;
+  } else if (type === "date") {
+    const now = dayjs();
+
+    const min = meta?.min && dayjs(meta?.min).hour(0).minute(0).second(0).millisecond(0);
+    const max = meta?.max && dayjs(meta?.max).hour(0).minute(0).second(0).millisecond(0);
+
+    const minFromToday =
+      isInteger(meta?.minFromToday) &&
+      now.add(meta.minFromToday, "day").hour(0).minute(0).second(0).millisecond(0);
+    const maxFromToday =
+      isInteger(meta?.maxFromToday) &&
+      now.add(meta.maxFromToday, "day").hour(0).minute(0).second(0).millisecond(0);
+
+    if (min && minFromToday) {
+      schemaField.min = dayjs.max(dayjs(min), dayjs(minFromToday)).toDate();
+    } else {
+      schemaField.min = (minFromToday || min)?.toDate();
+    }
+
+    if (max && maxFromToday) {
+      schemaField.max = dayjs.min(dayjs(max), dayjs(maxFromToday)).toDate();
+    } else {
+      schemaField.max = (maxFromToday || max)?.toDate();
+    }
+
+    if (meta?.validValues) {
+      schemaField.selectableDates = meta.validValues.map((value) => dayjs(value).toDate());
+    }
+
+    schemaField.multiple = meta.multiple === 1;
   }
 
   return schemaField;

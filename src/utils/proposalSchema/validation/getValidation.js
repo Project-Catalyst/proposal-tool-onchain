@@ -1,6 +1,7 @@
 import { mixed } from "yup";
 
 import getBooleanValidation from "./boolean";
+import getDateValidation from "./date";
 import getEmailValidation from "./email";
 import getNumberValidation from "./number";
 import getNumRangeValidation from "./numrange";
@@ -26,6 +27,8 @@ export default function getValidation(fieldDefinition) {
     validation = getNumRangeValidation(fieldDefinition);
   } else if (type === "boolean") {
     validation = getBooleanValidation();
+  } else if (type === "date") {
+    validation = getDateValidation(fieldDefinition);
   }
 
   if (meta?.required) {

@@ -243,5 +243,89 @@
       "description": "Can be left in indeterminate state",
       "required": 0
     }
+  },
+  {
+    "codeName": "date",
+    "label": "Date",
+    "type": "date",
+    "meta": {
+      "description": "",
+      "required": 1
+    }
+  },
+  {
+    "codeName": "optionalDate",
+    "label": "Date optional",
+    "type": "date",
+    "meta": {
+      "description": "",
+      "placeholder": "Optional",
+      "required": 0,
+      "multiple": 1,
+      "min": "2023-01-05",
+      "max": "2023-01-08"
+    }
+  },
+  {
+    "codeName": "relativeDate",
+    "label": "Date with relative min/max",
+    "type": "date",
+    "meta": {
+      "description": "",
+      "placeholder": "A week from today",
+      "required": 0,
+      "minFromToday": 0,
+      "maxFromToday": 6
+    }
+  },
+  {
+    "codeName": "relativeMinMaxDate",
+    "label": "Mixed min/max with today-relative constraints",
+    "type": "date",
+    "meta": {
+      "description": "",
+      "required": 0,
+      "min": "2022-12-02",
+      "max": "2022-12-10",
+      "minFromToday": -5,
+      "maxFromToday": 14
+    }
+  },
+  {
+    "codeName": "dateDefinedPossible",
+    "label": "Date with predefined possible values",
+    "type": "date",
+    "meta": {
+      "description": "",
+      "required": 0,
+      "validValues": [
+        "2022-12-02",
+        "2022-12-03",
+        "2022-12-05",
+        "2022-12-07",
+        "2022-12-11",
+        "2022-12-13",
+        "2022-12-17"
+      ]
+    }
+  },
+  {
+    "codeName": "dateDefinedPossibleMultiple",
+    "label": "Date multiple with predefined possible values",
+    "type": "date",
+    "meta": {
+      "description": "",
+      "required": 0,
+      "multiple": 1,
+      "validValues": [
+        "2022-12-02",
+        "2022-12-03",
+        "2022-12-05",
+        "2022-12-07",
+        "2022-12-11",
+        "2022-12-13",
+        "2022-12-17"
+      ]
+    }
   }
 ]

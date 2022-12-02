@@ -1,9 +1,5 @@
 <template>
-  <vee-form
-    v-bind="proposalSchema"
-    :is-read-only="isPublished"
-    @submit="onSubmit"
-  />
+  PROPOSAL EDIT FORM
 </template>
 
 <script setup>

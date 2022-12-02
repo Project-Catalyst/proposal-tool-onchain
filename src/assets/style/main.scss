@@ -39,6 +39,10 @@
       }
     }
 
+    .field > .control {
+      flex-grow: 1;
+    }
+
     .field > .help {
       white-space: pre-line;
     }

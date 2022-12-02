@@ -1,76 +1,18 @@
-import * as yup from "yup";
+import compact from "lodash/compact";
+import { ref } from "vue";
 
-import { stringOrArray } from "@/utils";
+import { getSchemaField, validateSchema } from "@/utils/proposalSchema";
 
-export default function useProposalSchema(proposalSchema, proposal = null) {
-  const fields = proposalSchema.map((item, idx) => {
-    const field = {
-      name: `field${idx}`,
-      label: stringOrArray(item.label),
-      required: !!item.required,
-      help: stringOrArray(item.description),
-    };
+export default function useProposalSchema(proposalSchema /* , proposal = null */) {
+  validateSchema(proposalSchema);
 
-    if (item.type === "Boolean") {
-      field.type = "checkbox";
-      field.value = true;
-    } else {
-      field.type = "text";
-    }
+  const schema = [];
 
-    return field;
-  });
-
-  const shape = {};
-  proposalSchema.forEach((item, idx) => {
-    let validator = yup;
-
-    if (item.type === "Number") {
-      validator = validator.number();
-    } else if (item.type === "Boolean") {
-      validator = validator.boolean();
-    } else {
-      validator = validator.string();
-    }
-
-    if (item.required) {
-      validator = validator.required("Required field");
-    }
-
-    shape[`field${idx}`] = validator.label("The field");
-  });
-  const validationSchema = yup.object().shape(shape);
-
-  const initialValues = {};
-  if (!proposal) {
-    proposalSchema.forEach((item, idx) => {
-      let value;
-
-      if (item.type === "Boolean") {
-        value = undefined;
-      } else {
-        value = "";
-      }
-
-      initialValues[`field${idx}`] = value;
-    });
-  } else {
-    proposalSchema.forEach((item, idx) => {
-      let value;
-
-      if (item.type === "Boolean") {
-        value = proposal[item.label];
-      } else {
-        value = proposal[item.label].toString();
-      }
-
-      initialValues[`field${idx}`] = value;
-    });
+  for (const fieldDefinition of proposalSchema) {
+    schema.push(getSchemaField(fieldDefinition));
   }
 
   return {
-    fields,
-    validationSchema,
-    initialValues,
+    schema: ref(compact(schema)),
   };
 }

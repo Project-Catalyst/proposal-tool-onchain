@@ -11,6 +11,7 @@ import {
   OModal,
   ONotification,
   OSelect,
+  OSlider,
   OTable,
   OTableColumn,
   OTooltip,
@@ -29,6 +30,7 @@ export default function setupOruga(app) {
   app.component("OModal", OModal);
   app.component("ONotification", ONotification);
   app.component("OSelect", OSelect);
+  app.component("OSlider", OSlider);
   app.component("OTable", OTable);
   app.component("OTableColumn", OTableColumn);
   app.component("OTooltip", OTooltip);

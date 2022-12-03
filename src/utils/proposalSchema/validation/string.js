@@ -43,7 +43,11 @@ export default function getStringValidation(fieldDefinition) {
         validation = validation.matches(new RegExp(`^${pattern}$`));
       }
     } else if (is(validValues)) {
-      validation = validation.oneOf(validValues);
+      const _validValues = [...validValues];
+      if (!required) {
+        _validValues.push("");
+      }
+      validation = validation.oneOf(_validValues);
     }
 
     if (multiple) {

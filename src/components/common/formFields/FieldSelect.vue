@@ -92,5 +92,8 @@ const emit = defineEmits({
 const value = ref(props.modelValue);
 
 watch(() => props.modelValue, () => value.value = props.modelValue);
-watch(value, () => emit("update:modelValue", value.value || null));
+watch(
+  value,
+  () => emit("update:modelValue", value.value || (typeof props.options[0] === "number" ? null : "")),
+);
 </script>

@@ -50,6 +50,29 @@
     }
   },
   {
+    "codeName": "optionsString",
+    "label": "String select",
+    "type": "string",
+    "meta": {
+      "description": "",
+      "required": 1,
+      "validValues": ["Option 1", "Option 2", "Option 3", "Option 4", "Option 5", "Option 6", "Option 7"]
+    }
+  },
+  {
+    "codeName": "multipleOptionsString",
+    "label": "String multiple select",
+    "type": "string",
+    "meta": {
+      "description": "",
+      "required": 1,
+      "validValues": ["Option 1", "Option 2", "Option 3", "Option 4", "Option 5", "Option 6", "Option 7"],
+      "multiple": 1,
+      "minItems": 2,
+      "maxItems": 4
+    }
+  },
+  {
     "codeName": "optionsLengthString",
     "label": "String of length equals",
     "type": "string",

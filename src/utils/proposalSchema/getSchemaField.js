@@ -40,7 +40,7 @@ export default function getSchemaField(fieldDefinition) {
     schemaField.type = "url";
   } else if (type === "email") {
     schemaField.type = "email";
-  } else if (type === "integer" || type === "float" || type === "decimal") {
+  } else if (type === "string" || type === "integer" || type === "float" || type === "decimal") {
     if (meta?.validValues) {
       schemaField.options = meta.validValues;
       schemaField.multiple = meta.multiple === 1;

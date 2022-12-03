@@ -25,7 +25,7 @@ export default function getInitialValue(fieldDefinition) {
 
   let initialValue = mapTypeInitialValue[type];
 
-  if ((type === "integer" || type === "float" || type === "decimal") && meta?.multiple) {
+  if ((type === "string" || type === "integer" || type === "float" || type === "decimal") && meta?.multiple) {
     initialValue = [];
   }
 

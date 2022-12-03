@@ -33,7 +33,7 @@ const mapTypeComponentKeys = Object.keys(mapTypeComponent);
 export default function getComponent(fieldDefinition) {
   const { type, meta } = fieldDefinition;
 
-  if (type === "integer" || type === "float" || type === "decimal") {
+  if (type === "string" || type === "integer" || type === "float" || type === "decimal") {
     if (meta?.validValues) {
       return FieldSelect;
     }

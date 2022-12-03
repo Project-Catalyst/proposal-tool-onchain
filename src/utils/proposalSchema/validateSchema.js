@@ -29,7 +29,18 @@ const validTypes = [
 const commonValidMetaPropertyNames = ["description", "required", "auto", "hidden"];
 
 const mapTypeValidMetaPropertyNames = {
-  string: ["placeholder", "lengthExact", "lengthMin", "lengthMax", "lengthOptions", "pattern"],
+  string: [
+    "placeholder",
+    "lengthExact",
+    "lengthMin",
+    "lengthMax",
+    "lengthOptions",
+    "pattern",
+    "validValues",
+    "multiple",
+    "minItems",
+    "maxItems",
+  ],
   url: ["placeholder"],
   email: ["placeholder"],
   text: ["placeholder", "lengthMin", "lengthMax"],
@@ -111,7 +122,17 @@ function validateMetaField(fieldDefinition) {
 
   // string and text types specific meta fields
   if (type === "string" || type === "text") {
-    const { lengthExact, lengthMin, lengthMax, lengthOptions, pattern } = meta;
+    const {
+      lengthExact,
+      lengthMin,
+      lengthMax,
+      lengthOptions,
+      pattern,
+      validValues,
+      multiple,
+      minItems,
+      maxItems,
+    } = meta;
 
     // 'lengthExact' must be an integer
     if (is(lengthExact) && !isInteger(lengthExact)) {
@@ -156,6 +177,54 @@ function validateMetaField(fieldDefinition) {
     // 'pattern' must be a string
     if (is(pattern) && !isString(pattern)) {
       throw new Error("meta.pattern must be a string");
+    }
+
+    // 'validValues' must be an array of strings
+    if (is(validValues) && (!isArray(validValues) || !validValues.every(isString))) {
+      throw new Error("meta.validValues must be an array of strings");
+    }
+
+    // 'multiple' must be either 0 or 1
+    if (is(multiple) && !isNumberBoolean(multiple)) {
+      throw new Error("Invalid meta.multiple value");
+    }
+
+    // 'multiple' can be used only with 'validValues'
+    if (is(multiple) && !is(validValues)) {
+      throw new Error("meta.multiple can be used only when meta.validValues defined");
+    }
+
+    // 'minItems' must be an integer
+    if (is(minItems) && !isInteger(minItems)) {
+      throw new Error("Invalid meta.minItems value");
+    }
+
+    // 'maxItems' must be an integer
+    if (is(maxItems) && !isInteger(maxItems)) {
+      throw new Error("Invalid meta.maxItems value");
+    }
+
+    // 'maxItems' must be greater than 'minItems'
+    if (is(minItems) && is(maxItems) && minItems >= maxItems) {
+      throw new Error("meta.maxItems must be greater than meta.minItems");
+    }
+
+    // 'minItems' can be used only with 'multiple'
+    if (is(minItems) && !is(multiple)) {
+      throw new Error("meta.minItems can be used only when meta.multiple === 1");
+    }
+
+    // 'maxItems' can be used only with 'multiple'
+    if (is(maxItems) && !is(multiple)) {
+      throw new Error("meta.maxItems can be used only when meta.multiple === 1");
+    }
+
+    // 'lengthExact'/'lengthMin'/'lengthMax'/'lengthOptions'/'pattern' not mixed with 'validValues'
+    if (
+      (is(lengthExact) || is(lengthMin) || is(lengthMax) || is(lengthOptions) || is(pattern)) &&
+      is(validValues)
+    ) {
+      throw new Error("Ambiguous string validation conditions");
     }
   }
 

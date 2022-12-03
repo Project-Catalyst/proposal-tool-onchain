@@ -23,6 +23,7 @@ const validTypes = [
   "numrange",
   "boolean",
   "date",
+  "daterange",
 ];
 
 const commonValidMetaPropertyNames = ["description", "required", "auto", "hidden"];
@@ -48,6 +49,7 @@ const mapTypeValidMetaPropertyNames = {
   numrange: ["min", "max", "step", "minRange", "maxRange"],
   boolean: [],
   date: ["placeholder", "min", "max", "minFromToday", "maxFromToday", "validValues", "multiple"],
+  daterange: ["placeholder", "min", "max", "minFromToday", "maxFromToday", "minRange", "maxRange"],
 };
 
 function isNumberBoolean(value) {
@@ -283,8 +285,8 @@ function validateMetaField(fieldDefinition) {
     }
   }
 
-  // date type specific meta fields
-  if (type === "date") {
+  // date/daterange type specific meta fields
+  if (type === "date" || type === "daterange") {
     const { min, max, minFromToday, maxFromToday, validValues, multiple } = meta;
 
     // 'min' must be a valid date string

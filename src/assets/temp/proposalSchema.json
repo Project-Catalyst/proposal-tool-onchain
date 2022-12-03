@@ -327,5 +327,18 @@
         "2022-12-17"
       ]
     }
+  },
+  {
+    "codeName": "dateRange",
+    "label": "Date range",
+    "type": "daterange",
+    "meta": {
+      "description": "",
+      "required": 1,
+      "min": "2022-12-05",
+      "max": "2022-12-25",
+      "minRange": 0,
+      "maxRange": 6
+    }
   }
 ]

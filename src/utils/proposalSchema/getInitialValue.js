@@ -9,6 +9,7 @@ const mapTypeInitialValue = {
   numrange: [],
   boolean: undefined,
   date: null,
+  daterange: [],
 };
 
 export default function getInitialValue(fieldDefinition) {

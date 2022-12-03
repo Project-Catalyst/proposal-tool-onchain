@@ -13,14 +13,14 @@
       :min-date="props.min"
       :max-date="props.max"
       :multiple="props.multiple"
-      :editable="!props.multiple"
+      :editable="(!props.multiple && !props.range)"
       :range="props.range"
       :focused-date="canSetToday ? new Date() : props.min || props.max"
       :selectable-dates="props.selectableDates"
       :placeholder="props.placeholder || 'Click to select...'"
       :readonly="props.readonly"
       :disabled="props.disabled"
-      @keypress="onKeyPress"
+      @keydown="onKeyPress"
     >
       <template #footer>
         <div class="buttons mb-0">
@@ -37,7 +37,7 @@
           <o-button
             v-if="value && !props.required"
             variant="danger"
-            @click="value = props.multiple ? [] : null"
+            @click="value = props.multiple || props.range ? [] : null"
           >
             <o-icon icon="times" />
 
@@ -141,6 +141,8 @@ watch(() => props.modelValue, () => value.value = props.modelValue);
 watch(value, () => emit("update:modelValue", value.value));
 
 function onKeyPress(e) {
-  props.multiple && e.preventDefault();
+  if (props.multiple || props.range) {
+    e.preventDefault();
+  }
 }
 </script>

@@ -68,7 +68,7 @@ export default function getSchemaField(fieldDefinition) {
     schemaField.min = meta?.min;
     schemaField.max = meta?.max;
     schemaField.step = meta?.step;
-  } else if (type === "date") {
+  } else if (type === "date" || type === "daterange") {
     const now = dayjs();
 
     const min = meta?.min && dayjs(meta?.min).hour(0).minute(0).second(0).millisecond(0);
@@ -93,11 +93,14 @@ export default function getSchemaField(fieldDefinition) {
       schemaField.max = (maxFromToday || max)?.toDate();
     }
 
-    if (meta?.validValues) {
-      schemaField.selectableDates = meta.validValues.map((value) => dayjs(value).toDate());
+    if (type === "daterange") {
+      schemaField.range = true;
+    } else {
+      if (meta?.validValues) {
+        schemaField.selectableDates = meta.validValues.map((value) => dayjs(value).toDate());
+      }
+      schemaField.multiple = meta.multiple === 1;
     }
-
-    schemaField.multiple = meta.multiple === 1;
   }
 
   return schemaField;

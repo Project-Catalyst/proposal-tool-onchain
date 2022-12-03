@@ -25,6 +25,7 @@ const mapTypeComponent = {
   numrange: FieldRange,
   boolean: FieldCheckbox,
   date: FieldDatepicker,
+  daterange: FieldDatepicker,
 };
 
 const mapTypeComponentKeys = Object.keys(mapTypeComponent);

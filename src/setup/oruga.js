@@ -16,6 +16,7 @@ import {
   OTable,
   OTableColumn,
   OTooltip,
+  OUpload,
 } from "@oruga-ui/oruga-next";
 import { bulmaConfig } from "@oruga-ui/theme-bulma";
 
@@ -36,5 +37,6 @@ export default function setupOruga(app) {
   app.component("OTable", OTable);
   app.component("OTableColumn", OTableColumn);
   app.component("OTooltip", OTooltip);
+  app.component("OUpload", OUpload);
   app.use(Config, { ...bulmaConfig, iconPack: "fas" });
 }

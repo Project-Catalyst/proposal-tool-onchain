@@ -25,6 +25,7 @@ const validTypes = [
   "boolean",
   "date",
   "daterange",
+  "file",
 ];
 
 const commonValidMetaPropertyNames = ["description", "required", "auto", "hidden"];
@@ -63,6 +64,7 @@ const mapTypeValidMetaPropertyNames = {
   boolean: [],
   date: ["placeholder", "min", "max", "minFromToday", "maxFromToday", "validValues", "multiple"],
   daterange: ["placeholder", "min", "max", "minFromToday", "maxFromToday", "minRange", "maxRange"],
+  file: ["accept", "multiple", "minItems", "maxItems"],
 };
 
 function isNumberBoolean(value) {
@@ -403,6 +405,41 @@ function validateMetaField(fieldDefinition) {
     // 'multiple' must be either 0 or 1
     if (is(multiple) && !isNumberBoolean(multiple)) {
       throw new Error("Invalid meta.multiple value");
+    }
+  }
+
+  // file type specific meta fields
+  if (type === "file") {
+    const { accept, multiple, minItems, maxItems } = meta;
+
+    // 'accept' must be a string
+    if (is(accept) && !isString(accept)) {
+      throw new Error("Invalid meta.accept value");
+    }
+
+    // 'minItems' must be an integer
+    if (is(minItems) && !isInteger(minItems)) {
+      throw new Error("Invalid meta.minItems value");
+    }
+
+    // 'maxItems' must be an integer
+    if (is(maxItems) && !isInteger(maxItems)) {
+      throw new Error("Invalid meta.maxItems value");
+    }
+
+    // 'maxItems' must be greater than 'minItems'
+    if (is(minItems) && is(maxItems) && minItems >= maxItems) {
+      throw new Error("meta.maxItems must be greater than meta.minItems");
+    }
+
+    // 'minItems' can be used only with 'multiple'
+    if (is(minItems) && !is(multiple)) {
+      throw new Error("meta.minItems can be used only when meta.multiple === 1");
+    }
+
+    // 'maxItems' can be used only with 'multiple'
+    if (is(maxItems) && !is(multiple)) {
+      throw new Error("meta.maxItems can be used only when meta.multiple === 1");
     }
   }
 }

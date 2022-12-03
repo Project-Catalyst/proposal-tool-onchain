@@ -7,6 +7,7 @@ import FieldInput from "@/components/common/formFields/FieldInput.vue";
 import FieldNumber from "@/components/common/formFields/FieldNumber.vue";
 import FieldRange from "@/components/common/formFields/FieldRange.vue";
 import FieldSelect from "@/components/common/formFields/FieldSelect.vue";
+import FieldUpload from "@/components/common/formFields/FieldUpload.vue";
 
 markRaw(FieldCheckbox);
 markRaw(FieldDatepicker);
@@ -15,6 +16,7 @@ markRaw(FieldInput);
 markRaw(FieldNumber);
 markRaw(FieldRange);
 markRaw(FieldSelect);
+markRaw(FieldUpload);
 
 const mapTypeComponent = {
   string: FieldInput,
@@ -29,6 +31,7 @@ const mapTypeComponent = {
   boolean: FieldCheckbox,
   date: FieldDatepicker,
   daterange: FieldDatepicker,
+  file: FieldUpload,
 };
 
 const mapTypeComponentKeys = Object.keys(mapTypeComponent);

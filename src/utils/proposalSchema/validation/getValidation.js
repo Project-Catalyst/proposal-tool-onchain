@@ -4,6 +4,7 @@ import getBooleanValidation from "./boolean";
 import getDateValidation from "./date";
 import getDateRangeValidation from "./daterange";
 import getEmailValidation from "./email";
+import getFileValidation from "./file";
 import getNumberValidation from "./number";
 import getNumRangeValidation from "./numrange";
 import getStringValidation from "./string";
@@ -32,6 +33,8 @@ export default function getValidation(fieldDefinition) {
     validation = getDateValidation(fieldDefinition);
   } else if (type === "daterange") {
     validation = getDateRangeValidation(fieldDefinition);
+  } else if (type === "file") {
+    validation = getFileValidation(fieldDefinition);
   }
 
   if (meta?.required) {

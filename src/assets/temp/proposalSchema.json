@@ -372,5 +372,27 @@
       "minRange": 0,
       "maxRange": 6
     }
+  },
+  {
+    "codeName": "file",
+    "label": "File",
+    "type": "file",
+    "meta": {
+      "description": "",
+      "required": 1
+    }
+  },
+  {
+    "codeName": "files",
+    "label": "File multiple",
+    "type": "file",
+    "meta": {
+      "description": "",
+      "required": 1,
+      "multiple": 1,
+      "minItems": 2,
+      "maxItems": 5,
+      "accept": "image/*"
+    }
   }
 ]

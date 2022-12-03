@@ -101,6 +101,9 @@ export default function getSchemaField(fieldDefinition) {
       }
       schemaField.multiple = meta.multiple === 1;
     }
+  } else if (type === "file") {
+    schemaField.accept = meta.accept;
+    schemaField.multiple = meta.multiple === 1;
   }
 
   return schemaField;

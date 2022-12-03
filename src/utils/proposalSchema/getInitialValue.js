@@ -11,6 +11,7 @@ const mapTypeInitialValue = {
   boolean: undefined,
   date: null,
   daterange: [],
+  file: null,
 };
 
 export default function getInitialValue(fieldDefinition) {
@@ -26,7 +27,10 @@ export default function getInitialValue(fieldDefinition) {
 
   let initialValue = mapTypeInitialValue[type];
 
-  if ((type === "string" || type === "integer" || type === "float" || type === "decimal") && meta?.multiple) {
+  if (
+    (type === "string" || type === "integer" || type === "float" || type === "decimal" || type === "file") &&
+    meta?.multiple
+  ) {
     initialValue = [];
   }
 

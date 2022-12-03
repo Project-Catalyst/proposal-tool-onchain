@@ -123,6 +123,15 @@
     }
   },
   {
+    "codeName": "html",
+    "label": "HTML",
+    "type": "html",
+    "meta": {
+      "description": "",
+      "required": 0
+    }
+  },
+  {
     "codeName": "unlimitedInteger",
     "label": "Integer number",
     "type": "integer",

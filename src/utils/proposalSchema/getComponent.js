@@ -2,6 +2,7 @@ import { markRaw } from "vue";
 
 import FieldCheckbox from "@/components/common/formFields/FieldCheckbox.vue";
 import FieldDatepicker from "@/components/common/formFields/FieldDatepicker.vue";
+import FieldHtml from "@/components/common/formFields/FieldHtml.vue";
 import FieldInput from "@/components/common/formFields/FieldInput.vue";
 import FieldNumber from "@/components/common/formFields/FieldNumber.vue";
 import FieldRange from "@/components/common/formFields/FieldRange.vue";
@@ -9,6 +10,7 @@ import FieldSelect from "@/components/common/formFields/FieldSelect.vue";
 
 markRaw(FieldCheckbox);
 markRaw(FieldDatepicker);
+markRaw(FieldHtml);
 markRaw(FieldInput);
 markRaw(FieldNumber);
 markRaw(FieldRange);
@@ -19,6 +21,7 @@ const mapTypeComponent = {
   url: FieldInput,
   email: FieldInput,
   text: FieldInput,
+  html: FieldHtml,
   integer: FieldNumber,
   float: FieldNumber,
   decimal: FieldNumber,

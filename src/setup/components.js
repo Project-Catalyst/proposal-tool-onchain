@@ -1,3 +1,5 @@
+import { QuillEditor } from "@vueup/vue-quill";
+
 import ButtonDropdown from "@/components/common/ButtonDropdown.vue";
 import ButtonsSave from "@/components/common/ButtonsSave.vue";
 import ButtonTxSubmit from "@/components/common/ButtonTxSubmit.vue";
@@ -7,6 +9,8 @@ import VeeForm from "@/components/common/VeeForm.vue";
 import WrapperPage from "@/components/layout/WrapperPage.vue";
 
 export default function setupComponents(app) {
+  app.component("QuillEditor", QuillEditor);
+
   app.component("ButtonDropdown", ButtonDropdown);
   app.component("ButtonsSave", ButtonsSave);
   app.component("ButtonTxSubmit", ButtonTxSubmit);

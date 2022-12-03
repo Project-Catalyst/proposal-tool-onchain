@@ -3,6 +3,7 @@ const mapTypeInitialValue = {
   url: "",
   email: "",
   text: "",
+  html: {},
   integer: null,
   float: null,
   decimal: null,

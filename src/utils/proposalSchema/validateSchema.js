@@ -17,6 +17,7 @@ const validTypes = [
   "url",
   "email",
   "text",
+  "html",
   "integer",
   "float",
   "decimal",
@@ -44,6 +45,7 @@ const mapTypeValidMetaPropertyNames = {
   url: ["placeholder"],
   email: ["placeholder"],
   text: ["placeholder", "lengthMin", "lengthMax"],
+  html: [],
   integer: ["placeholder", "min", "max", "step", "validValues", "multiple", "minItems", "maxItems"],
   float: ["placeholder", "min", "max", "step", "validValues", "multiple", "minItems", "maxItems"],
   decimal: [

@@ -26,6 +26,7 @@
     "lodash": "^4.17.21",
     "pinia": "^2.0.23",
     "pinia-plugin-persistedstate": "^2.3.0",
+    "sanitize-html": "^2.7.3",
     "sjcl": "^1.0.8",
     "uuid": "^9.0.0",
     "vee-validate": "^4.7.3",

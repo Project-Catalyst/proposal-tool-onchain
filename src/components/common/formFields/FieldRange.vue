@@ -14,12 +14,13 @@
       :max="props.max"
       :step="props.step"
       :disabled="props.disabled"
+      :variant="variant"
     />
   </field-wrapper>
 </template>
 
 <script setup>
-import { ref, watch } from "vue";
+import { computed, ref, watch } from "vue";
 
 import FieldWrapper from "@/components/common/formFields/FieldWrapper.vue";
 
@@ -80,8 +81,17 @@ const emit = defineEmits({
 
 const value = ref(props.modelValue);
 
+const variant = computed(() => props.validation.meta.valid ? "primary" : "danger");
+
 watch(() => props.modelValue, () => value.value = props.modelValue);
-watch(value, () => emit("update:modelValue", value.value));
+watch(
+  value,
+  () => {
+    if (!props.readonly) {
+      emit("update:modelValue", value.value);
+    }
+  },
+);
 </script>
 
 <style>

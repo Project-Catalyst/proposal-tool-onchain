@@ -138,7 +138,14 @@ const canSetToday = computed(() => {
 });
 
 watch(() => props.modelValue, () => value.value = props.modelValue);
-watch(value, () => emit("update:modelValue", value.value));
+watch(
+  value,
+  () => {
+    if (!props.readonly) {
+      emit("update:modelValue", value.value);
+    }
+  },
+);
 
 function onKeyPress(e) {
   if (props.multiple || props.range) {

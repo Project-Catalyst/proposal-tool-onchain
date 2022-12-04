@@ -20,7 +20,7 @@
     />
 
     <o-button
-      v-if="props.step"
+      v-if="(props.step && !props.readonly)"
       :disabled="+props.modelValue <= props.min"
       icon-right="minus"
       variant="primary"
@@ -28,7 +28,7 @@
     />
 
     <o-button
-      v-if="props.step"
+      v-if="(props.step && !props.readonly)"
       :disabled="+props.modelValue >= props.max"
       icon-right="plus"
       variant="primary"

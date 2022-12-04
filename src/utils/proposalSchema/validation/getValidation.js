@@ -5,6 +5,7 @@ import getDateValidation from "./date";
 import getDateRangeValidation from "./daterange";
 import getEmailValidation from "./email";
 import getFileValidation from "./file";
+import getHtmlValidation from "./html";
 import getNumberValidation from "./number";
 import getNumRangeValidation from "./numrange";
 import getStringValidation from "./string";
@@ -17,6 +18,8 @@ export default function getValidation(fieldDefinition) {
 
   if ((type === "string" || type === "text") && meta) {
     validation = getStringValidation(fieldDefinition);
+  } else if (type === "html") {
+    validation = getHtmlValidation(fieldDefinition);
   } else if (type === "url") {
     validation = getUrlValidation();
   } else if (type === "email") {

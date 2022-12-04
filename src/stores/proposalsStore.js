@@ -1,4 +1,5 @@
 import { md5 } from "hash-wasm";
+import cloneDeep from "lodash/cloneDeep";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
@@ -19,7 +20,8 @@ export default defineStore(
 
     async function create(proposalData) {
       proposalData.id = await genId(proposalData);
-      all.value.push(proposalData);
+      console.log("new proposal", cloneDeep(proposalData));
+      // all.value.push(proposalData);
     }
 
     function put(proposalData) {

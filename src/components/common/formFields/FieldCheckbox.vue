@@ -9,8 +9,7 @@
       :id="props.uuid"
       v-model="value"
       :class="{'no-pointer-events': props.readonly}"
-      :indeterminate="props.default === undefined"
-      :readonly="props.readonly"
+      :indeterminate="(props.default === undefined && value === undefined)"
       :disabled="props.disabled"
     />
   </field-wrapper>

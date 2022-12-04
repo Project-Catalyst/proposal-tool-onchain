@@ -46,7 +46,7 @@ const mapTypeValidMetaPropertyNames = {
   url: ["placeholder"],
   email: ["placeholder"],
   text: ["placeholder", "lengthMin", "lengthMax"],
-  html: [],
+  html: ["lengthMin", "lengthMax"],
   integer: ["placeholder", "min", "max", "step", "validValues", "multiple", "minItems", "maxItems"],
   float: ["placeholder", "min", "max", "step", "validValues", "multiple", "minItems", "maxItems"],
   decimal: [
@@ -125,7 +125,7 @@ function validateMetaField(fieldDefinition) {
   const { type } = fieldDefinition;
 
   // string and text types specific meta fields
-  if (type === "string" || type === "text") {
+  if (type === "string" || type === "text" || type === "html") {
     const {
       lengthExact,
       lengthMin,

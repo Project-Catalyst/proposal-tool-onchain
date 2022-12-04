@@ -1,7 +1,7 @@
 import cloneDeep from "lodash/cloneDeep";
 import uniq from "lodash/uniq";
 
-import proposalSchema from "@/assets/temp/proposalSchema.json";
+import proposalSchema from "@/assets/temp/proposalSchema";
 import { OPERABLE_STAGES } from "@/blockchain/const";
 import { camelToWords, compactString } from "@/utils";
 

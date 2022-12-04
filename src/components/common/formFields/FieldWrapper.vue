@@ -1,6 +1,8 @@
 <template>
   <o-field
-    :class="{required: props.required}"
+    :class="{
+      required: props.required,
+    }"
     :label="props.label"
     :variant="variant"
     :clearable="!props.required"
@@ -51,8 +53,7 @@ const variant = computed(() => {
     return "danger";
   } else if (props.validation.meta.valid && props.validation.meta.dirty) {
     return "success";
-  } else {
-    return "";
   }
+  return "";
 });
 </script>

@@ -1,5 +1,5 @@
-import compact from "lodash/compact";
-import { ref } from "vue";
+import cloneDeep from "lodash/cloneDeep";
+import { markRaw, ref } from "vue";
 
 import { getSchemaField, validateSchema } from "@/utils/proposalSchema";
 
@@ -9,10 +9,32 @@ export default function useProposalSchema(proposalSchema /* , proposal = null */
   const schema = [];
 
   for (const fieldDefinition of proposalSchema) {
-    schema.push(getSchemaField(fieldDefinition));
+    const field = getSchemaField(fieldDefinition);
+    if (field) {
+      schema.push(field);
+    }
+  }
+
+  const schemaRef = ref(cloneSchema());
+
+  function cloneSchema() {
+    const schemaClone = cloneDeep(schema);
+    for (const field of schemaClone) {
+      if (Array.isArray(field)) {
+        field.forEach((f) => markRaw(f.component));
+      } else {
+        markRaw(field.component);
+      }
+    }
+    return schemaClone;
+  }
+
+  function reset() {
+    schemaRef.value = cloneSchema();
   }
 
   return {
-    schema: ref(compact(schema)),
+    schema: schemaRef,
+    reset,
   };
 }

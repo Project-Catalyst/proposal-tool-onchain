@@ -11,7 +11,6 @@
       expanded
       :multiple="props.multiple"
       :placeholder="props.placeholder"
-      :readonly="props.readonly"
       :disabled="props.disabled"
     >
       <option
@@ -94,6 +93,10 @@ const value = ref(props.modelValue);
 watch(() => props.modelValue, () => value.value = props.modelValue);
 watch(
   value,
-  () => emit("update:modelValue", value.value || (typeof props.options[0] === "number" ? null : "")),
+  () => {
+    if (!props.readonly) {
+      emit("update:modelValue", value.value || (typeof props.options[0] === "number" ? null : ""));
+    }
+  },
 );
 </script>

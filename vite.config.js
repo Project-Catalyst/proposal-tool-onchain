@@ -10,7 +10,8 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
-      crypto: "rollup-plugin-node-polyfills/polyfills/crypto",
+      buffer: "rollup-plugin-node-polyfills/polyfills/buffer-es6",
+      crypto: "crypto-browserify",
     },
   },
   optimizeDeps: {
@@ -18,18 +19,12 @@ export default defineConfig({
       define: {
         global: "globalThis",
       },
-      plugins: [
-        NodeGlobalsPolyfillPlugin({
-          process: true,
-          buffer: true,
-        }),
-        NodeModulesPolyfillPlugin(),
-      ],
+      plugins: [NodeGlobalsPolyfillPlugin({ buffer: true }), NodeModulesPolyfillPlugin()],
     },
   },
   build: {
     rollupOptions: {
-      plugins: [rollupNodePolyFill()],
+      plugins: [rollupNodePolyFill({ crypto: true })],
     },
   },
   plugins: [vue(), eslintPlugin()],

@@ -23,16 +23,32 @@ export default function getStringValidation(fieldDefinition) {
 
     if (is(lengthExact) || is(lengthMin) || is(lengthMax) || is(lengthOptions) || is(pattern)) {
       if (is(lengthExact)) {
-        validation = validation.length(lengthExact);
+        if (required) {
+          validation = validation.length(lengthExact);
+        } else {
+          validation = validation.test(
+            "isEmptyOrExactLength",
+            `this must be exactly ${lengthExact} characters`,
+            (value) => value.length === 0 || value.length === lengthExact,
+          );
+        }
       } else if (is(lengthOptions)) {
         validation = validation.test(
           "oneOfLength",
           `string length must be equal one of following values: ${lengthOptions.join(", ")}`,
-          (value) => lengthOptions.includes(value.length),
+          (value) => (!required && value.length === 0) || lengthOptions.includes(value.length),
         );
       } else {
         if (is(lengthMin)) {
-          validation = validation.min(lengthMin);
+          if (required) {
+            validation = validation.min(lengthMin);
+          } else {
+            validation = validation.test(
+              "isEmptyOrMinLength",
+              `this must be at least ${lengthMin} characters`,
+              (value) => value.length === 0 || value.length >= lengthMin,
+            );
+          }
         }
         if (is(lengthMax)) {
           validation = validation.max(lengthMax);
@@ -40,7 +56,11 @@ export default function getStringValidation(fieldDefinition) {
       }
 
       if (pattern) {
-        validation = validation.matches(new RegExp(`^${pattern}$`));
+        if (required) {
+          validation = validation.matches(new RegExp(`^${pattern}$`));
+        } else {
+          validation = validation.matches(new RegExp(`^(${pattern})?$`));
+        }
       }
     } else if (is(validValues)) {
       const _validValues = [...validValues];
@@ -58,7 +78,7 @@ export default function getStringValidation(fieldDefinition) {
           validation = validation.min(minItems);
         } else {
           validation = validation.test(
-            "isEmptyOrMinLength",
+            "isEmptyOrMinItems",
             `this field must be empty or have at least ${minItems} items`,
             (value) => value.length === 0 || value.length >= minItems,
           );

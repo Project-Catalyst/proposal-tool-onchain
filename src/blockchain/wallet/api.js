@@ -1,5 +1,5 @@
 import { Transaction, TransactionWitnessSet } from "@emurgo/cardano-serialization-lib-asmjs";
-import Buffer from "buffer";
+import { Buffer } from "buffer";
 
 export async function signTx(walletApi, tx, witnessSet, partialSign = false) {
   const txCbor = Buffer.from(tx.to_bytes(), "utf8").toString("hex");

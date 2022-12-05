@@ -1,9 +1,11 @@
+import dayjs from "dayjs";
 import { md5 } from "hash-wasm";
 import cloneDeep from "lodash/cloneDeep";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
 import { currentBlock } from "@/blockchain/queries";
+import { useConnectedWallet } from "@/composables";
 
 async function genId(proposalData) {
   const block = await currentBlock();
@@ -16,16 +18,26 @@ async function genId(proposalData) {
 export default defineStore(
   "proposals",
   () => {
+    const connectedWallet = useConnectedWallet();
+
     const all = ref([]);
 
     async function create(proposalData) {
+      if (!connectedWallet.stakeAddress.value) {
+        throw new Error("Unable to get wallet stake address. Check the wallet connection and try again");
+      }
+      const nowFormatted = dayjs().format("YYYY-MM-DDTHH:mm:ss");
       proposalData.id = await genId(proposalData);
-      console.log("new proposal", cloneDeep(proposalData));
-      // all.value.push(proposalData);
+      proposalData.creator = connectedWallet.stakeAddress.value;
+      proposalData.createdAt = nowFormatted;
+      proposalData.updatedAt = nowFormatted;
+      all.value.push(cloneDeep(proposalData));
     }
 
     function put(proposalData) {
+      const nowFormatted = dayjs().format("YYYY-MM-DDTHH:mm:ss");
       const index = all.value.findIndex(({ id }) => id === proposalData.id);
+      proposalData.updatedAt = nowFormatted;
       if (index >= 0) {
         all.value.splice(index, 1, proposalData);
       } else {

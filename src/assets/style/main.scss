@@ -47,6 +47,22 @@
       white-space: pre-line;
     }
   }
+
+  .generated-form form {
+    .schema-row {
+      display: flex;
+      gap: 1em;
+
+      & + .buttons {
+        margin-top: 1.5rem;
+      }
+
+      & > .schema-col {
+        flex-grow: 1;
+        flex-basis: 100%;
+      }
+    }
+  }
 }
 
 .no-pointer-events {

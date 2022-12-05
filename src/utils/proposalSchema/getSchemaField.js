@@ -9,16 +9,16 @@ import getComponent from "./getComponent";
 import getInitialValue from "./getInitialValue";
 import { getValidation } from "./validation";
 
-export default function getSchemaField(fieldDefinition) {
+export default function getSchemaField(fieldDefinition, proposalFormData) {
   if (Array.isArray(fieldDefinition)) {
-    return compact(fieldDefinition.map(getSchemaField));
-  }
-
-  if (fieldDefinition.meta?.hidden === 1) {
-    return undefined;
+    return compact(fieldDefinition.map((field) => getSchemaField(field, proposalFormData)));
   }
 
   const { type, codeName, label, meta } = fieldDefinition;
+
+  if (type === "datetime" || meta?.hidden === 1) {
+    return undefined;
+  }
 
   const schemaField = {};
 
@@ -31,7 +31,7 @@ export default function getSchemaField(fieldDefinition) {
   schemaField.readonly = meta?.auto === 1;
   schemaField.required = meta?.required === 1;
 
-  schemaField.default = getInitialValue(fieldDefinition);
+  schemaField.default = getInitialValue(fieldDefinition, proposalFormData);
   schemaField.validations = getValidation(fieldDefinition);
 
   if (type === "text") {

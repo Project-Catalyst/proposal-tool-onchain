@@ -80,7 +80,7 @@ const props = defineProps({
     default: 0,
   },
   default: {
-    type: [Number, null],
+    type: String,
     required: true,
   },
   min: {

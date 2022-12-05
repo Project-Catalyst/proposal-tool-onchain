@@ -14,16 +14,16 @@ const mapTypeInitialValue = {
   file: null,
 };
 
-export default function getInitialValue(fieldDefinition) {
-  if (Array.isArray(fieldDefinition)) {
-    return Object.assign({}, ...fieldDefinition.map(getInitialValue));
-  }
-
+export default function getInitialValue(fieldDefinition, proposalFormData) {
   if (fieldDefinition.meta?.hidden === 1) {
-    return {};
+    return;
   }
 
-  const { type, meta } = fieldDefinition;
+  const { codeName, type, meta } = fieldDefinition;
+
+  if (proposalFormData?.[codeName] !== undefined) {
+    return proposalFormData?.[codeName];
+  }
 
   let initialValue = mapTypeInitialValue[type];
 

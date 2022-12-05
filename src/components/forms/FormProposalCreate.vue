@@ -31,11 +31,11 @@
 <script setup>
 import VeeValidatePlugin from "@formvuelate/plugin-vee-validate";
 import { syncRef, useStorage } from "@vueuse/core";
-import dayjs from "dayjs";
 import { SchemaFormFactory, useSchemaForm } from "formvuelate";
 import { onMounted, ref } from "vue";
 
 import { usePreviousPage, useProposals, useProposalSchema } from "@/composables";
+import { formStorageSerializer } from "@/utils";
 
 const props = defineProps({
   fundHash: {
@@ -48,53 +48,12 @@ const props = defineProps({
   },
 });
 
-function serialize(value) {
-  if (value instanceof Date) {
-    return {
-      isDate: true,
-      date: dayjs(value).format("YYYY-MM-DD"),
-    };
-  } else {
-    return value;
-  }
-}
-
-function deserialize(value) {
-  if (value?.isDate) {
-    return dayjs(value.date).toDate();
-  } else {
-    return value;
-  }
-}
-
-const formDataSaved = useStorage(`newProposal:${props.challenge.id}:${props.fundHash}`, {}, localStorage, {
-  serializer: {
-    read: (value) => {
-      const parsedValue = value ? JSON.parse(value) : null;
-      if (parsedValue) {
-        for (const key of Object.keys(parsedValue)) {
-          if (Array.isArray(parsedValue[key])) {
-            parsedValue[key] = parsedValue[key].map(deserialize);
-          } else {
-            parsedValue[key] = deserialize(parsedValue[key]);
-          }
-        }
-      }
-      return parsedValue;
-    },
-    write: (value) => {
-      const preparedValue = {};
-      for (const key of Object.keys(value)) {
-        if (Array.isArray(value[key])) {
-          preparedValue[key] = value[key].map(serialize);
-        } else {
-          preparedValue[key] = serialize(value[key]);
-        }
-      }
-      return JSON.stringify(preparedValue);
-    },
-  },
-});
+const formDataSaved = useStorage(
+  `newProposal:${props.challenge.id}:${props.fundHash}`,
+  {},
+  localStorage,
+  { serializer: formStorageSerializer },
+);
 const formData = ref({});
 
 useSchemaForm(formData);
@@ -128,9 +87,9 @@ async function onSubmit() {
 
   isLoading.value = false;
 
-  // formDataSaved.value = null;
+  formDataSaved.value = null;
 
-  // previousPage.go();
+  previousPage.go();
 }
 
 onMounted(() => {
@@ -140,21 +99,3 @@ onMounted(() => {
   syncRef(formData, formDataSaved, { direction: "ltr" });
 });
 </script>
-
-<style lang="scss">
-.generated-form form {
-  .schema-row {
-    display: flex;
-    gap: 1em;
-
-    & + .buttons {
-      margin-top: 1.5rem;
-    }
-
-    & > .schema-col {
-      flex-grow: 1;
-      flex-basis: 100%;
-    }
-  }
-}
-</style>

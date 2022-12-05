@@ -24,8 +24,9 @@ const validTypes = [
   "numrange",
   "boolean",
   "date",
+  "datetime",
   "daterange",
-  "file",
+  // "file",
 ];
 
 const commonValidMetaPropertyNames = ["description", "required", "auto", "hidden"];
@@ -64,6 +65,7 @@ const mapTypeValidMetaPropertyNames = {
   boolean: [],
   date: ["placeholder", "min", "max", "minFromToday", "maxFromToday", "validValues", "multiple"],
   daterange: ["placeholder", "min", "max", "minFromToday", "maxFromToday", "minRange", "maxRange"],
+  datetime: [],
   file: ["accept", "multiple", "minItems", "maxItems"],
 };
 

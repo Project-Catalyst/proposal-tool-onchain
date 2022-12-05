@@ -2,10 +2,10 @@
   <o-table :data="proposals">
     <o-table-column
       v-slot="data"
-      field="proposalTitle"
+      field="title"
       label="Proposal title"
     >
-      {{ data.row['Proposal title'] }}
+      {{ data.row.title }}
     </o-table-column>
 
     <o-table-column
@@ -18,10 +18,10 @@
 
     <o-table-column
       v-slot="data"
-      field="createdAt"
-      label="Created at"
+      field="updatedAt"
+      label="Modified"
     >
-      {{ data.row['Creation date'] }}
+      {{ data.row.updatedAt }}
     </o-table-column>
 
     <o-table-column

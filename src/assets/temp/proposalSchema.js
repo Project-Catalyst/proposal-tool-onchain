@@ -1,4 +1,74 @@
 export default [
+  {
+    codeName: "id",
+    label: "ID",
+    type: "string",
+    meta: {
+      description: [
+        "MD5 hash of the concatenation of `title`, `author` and the curre",
+        "nt block hash at the moment of the creation of the proposal",
+      ],
+      required: 1,
+      auto: 1,
+      hidden: 1,
+      lengthExact: 32,
+    },
+  },
+  {
+    codeName: "title",
+    label: "Proposal title",
+    type: "string",
+    meta: {
+      description: "",
+      required: 1,
+      lengthMin: 8,
+      lengthMax: 80,
+    },
+  },
+  {
+    codeName: "author",
+    label: "Author name",
+    type: "string",
+    meta: {
+      description: "Human readable author name",
+      required: 1,
+      lengthMin: 2,
+      lengthMax: 32,
+    },
+  },
+  {
+    codeName: "creator",
+    label: "Creator stake address",
+    type: "string",
+    meta: {
+      description: "Stake address of the wallet used for proposal publication",
+      required: 1,
+      auto: 1,
+      hidden: 1,
+    },
+  },
+  {
+    codeName: "createdAt",
+    label: "Created at",
+    type: "datetime",
+    meta: {
+      description: "Proposal creation date and time",
+      required: 1,
+      auto: 1,
+      hidden: 1,
+    },
+  },
+  {
+    codeName: "updatedAt",
+    label: "Updated at",
+    type: "datetime",
+    meta: {
+      description: "Last proposal edit date and time",
+      required: 1,
+      auto: 1,
+      hidden: 1,
+    },
+  },
   [
     {
       codeName: "requiredString",
@@ -6,7 +76,7 @@ export default [
       type: "string",
       meta: {
         description: "Please enter a string",
-        required: 1,
+        required: 0,
       },
     },
     {
@@ -25,7 +95,7 @@ export default [
     type: "string",
     meta: {
       description: "",
-      required: 1,
+      required: 0,
     },
   },
   {
@@ -34,7 +104,7 @@ export default [
     type: "string",
     meta: {
       description: "Please enter a 4 character string",
-      required: 1,
+      required: 0,
       lengthExact: 4,
     },
   },
@@ -44,7 +114,7 @@ export default [
     type: "string",
     meta: {
       description: "Min string length = 6, max string length = 15",
-      required: 1,
+      required: 0,
       lengthMin: 6,
       lengthMax: 15,
     },
@@ -55,7 +125,7 @@ export default [
     type: "string",
     meta: {
       description: "Please enter a 3 or 5 character string",
-      required: 1,
+      required: 0,
       lengthOptions: [3, 5],
     },
   },
@@ -65,7 +135,7 @@ export default [
     type: "string",
     meta: {
       description: "Please enter a string matching the pattern: \\d{3}-\\d{2}-\\d{2}",
-      required: 1,
+      required: 0,
       pattern: "\\d{3}-\\d{2}-\\d{2}",
     },
   },
@@ -75,7 +145,7 @@ export default [
     type: "url",
     meta: {
       description: "",
-      required: 1,
+      required: 0,
     },
   },
   {
@@ -84,7 +154,7 @@ export default [
     type: "email",
     meta: {
       description: "",
-      required: 1,
+      required: 0,
       placeholder: "user@example.com",
     },
   },
@@ -94,7 +164,7 @@ export default [
     type: "text",
     meta: {
       description: "",
-      required: 1,
+      required: 0,
       lengthMin: 8,
       lengthMax: 128,
     },
@@ -105,7 +175,7 @@ export default [
     type: "html",
     meta: {
       description: "",
-      required: 1,
+      required: 0,
       lengthMin: 32,
       lengthMax: 256,
     },
@@ -116,7 +186,7 @@ export default [
     type: "string",
     meta: {
       description: "",
-      required: 1,
+      required: 0,
       validValues: ["Option 1", "Option 2", "Option 3", "Option 4", "Option 5", "Option 6", "Option 7"],
     },
   },
@@ -126,7 +196,7 @@ export default [
     type: "string",
     meta: {
       description: "",
-      required: 1,
+      required: 0,
       validValues: ["Option 1", "Option 2", "Option 3", "Option 4", "Option 5", "Option 6", "Option 7"],
       multiple: 1,
       minItems: 2,
@@ -139,7 +209,7 @@ export default [
     type: "integer",
     meta: {
       description: "Unlimited integer number",
-      required: 1,
+      required: 0,
     },
   },
   [
@@ -149,7 +219,7 @@ export default [
       type: "integer",
       meta: {
         description: "Min value = 1, max value = 64",
-        required: 1,
+        required: 0,
         min: 1,
         max: 64,
       },
@@ -160,7 +230,7 @@ export default [
       type: "integer",
       meta: {
         description: "Min value = -100, max value = 100, step = 25",
-        required: 1,
+        required: 0,
         min: -100,
         max: 100,
         step: 25,
@@ -206,7 +276,7 @@ export default [
     type: "numrange",
     meta: {
       description: "",
-      required: 1,
+      required: 0,
       min: 1000,
       max: 1000000,
       step: 1000,
@@ -230,7 +300,7 @@ export default [
       min: 3.14,
       max: 6.28,
       step: 0.01,
-      required: 1,
+      required: 0,
     },
   },
   {
@@ -254,7 +324,7 @@ export default [
     meta: {
       description: "",
       placeholder: "##.###",
-      required: 1,
+      required: 0,
       decimals: 3,
       min: 10,
       max: 99.999,
@@ -266,7 +336,7 @@ export default [
     type: "boolean",
     meta: {
       description: "Must be either checked or unchecked",
-      required: 1,
+      required: 0,
     },
   },
   {
@@ -284,7 +354,7 @@ export default [
     type: "date",
     meta: {
       description: "",
-      required: 1,
+      required: 0,
     },
   },
   {
@@ -307,7 +377,7 @@ export default [
     meta: {
       description: "",
       placeholder: "A week from today",
-      required: 1,
+      required: 0,
       minFromToday: 0,
       maxFromToday: 6,
     },
@@ -318,7 +388,7 @@ export default [
     type: "date",
     meta: {
       description: "",
-      required: 1,
+      required: 0,
       min: "2022-12-02",
       max: "2022-12-10",
       minFromToday: -5,
@@ -331,7 +401,7 @@ export default [
     type: "date",
     meta: {
       description: "",
-      required: 1,
+      required: 0,
       validValues: [
         "2022-12-02",
         "2022-12-03",
@@ -349,7 +419,7 @@ export default [
     type: "date",
     meta: {
       description: "",
-      required: 1,
+      required: 0,
       multiple: 1,
       validValues: [
         "2022-12-02",
@@ -368,7 +438,7 @@ export default [
     type: "daterange",
     meta: {
       description: "",
-      required: 1,
+      required: 0,
       min: "2022-12-05",
       max: "2022-12-25",
       minRange: 0,
@@ -381,7 +451,7 @@ export default [
   //   type: "file",
   //   meta: {
   //     description: "",
-  //     required: 1,
+  //     required: 0,
   //   },
   // },
   // {
@@ -390,7 +460,7 @@ export default [
   //   type: "file",
   //   meta: {
   //     description: "",
-  //     required: 1,
+  //     required: 0,
   //     multiple: 1,
   //     minItems: 2,
   //     maxItems: 5,

@@ -13,7 +13,7 @@ import {
   TransactionWitnessSet,
   Value,
 } from "@emurgo/cardano-serialization-lib-asmjs";
-import { Buffer } from "buffer";
+import Buffer from "buffer";
 
 import { mix } from "@/utils";
 

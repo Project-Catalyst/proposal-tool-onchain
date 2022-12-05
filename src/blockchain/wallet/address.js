@@ -4,7 +4,7 @@ import {
   RewardAddress,
   TransactionUnspentOutput,
 } from "@emurgo/cardano-serialization-lib-asmjs";
-import { Buffer } from "buffer";
+import Buffer from "buffer";
 
 export function extractStakeAddressBech32(addressBech32, networkId = 1) {
   const addr = Address.from_bech32(addressBech32);

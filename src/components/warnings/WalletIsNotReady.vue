@@ -1,11 +1,19 @@
 <template>
   <article class="message is-warning">
     <div class="message-body">
-      <p>
-        <span v-if="(isConnected && !isReady)">
+      <p v-if="(isConnected && !isReady)">
+        <span>
           <icon-loading />
         </span>
-        Please check your wallet connection to see this page
+        <span>
+          Processing wallet connection...
+        </span>
+      </p>
+
+      <p v-else>
+        <span>
+          Please check your wallet connection to see this page
+        </span>
       </p>
     </div>
   </article>

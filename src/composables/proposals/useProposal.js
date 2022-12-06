@@ -90,6 +90,7 @@ export default function useProposal(proposalId) {
   }
 
   function remove() {
+    localStorage.removeItem(`editProposal:${proposalId}`);
     proposals.remove(proposalId);
   }
 

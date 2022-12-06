@@ -3,6 +3,8 @@
     title="Edit proposal"
     :subtitle="title"
     :is-loading="isLoading"
+    :is-empty="isEmpty"
+    check-first="empty"
   >
     <nav
       class="breadcrumb"
@@ -51,6 +53,10 @@
         :proposal-id="proposalId"
       />
     </div>
+
+    <template #empty>
+      <wallet-is-not-ready />
+    </template>
   </wrapper-page>
 </template>
 
@@ -64,7 +70,8 @@ import ButtonProposalPublish from "@/components/controls/ButtonProposalPublish.v
 import ButtonProposalRemove from "@/components/controls/ButtonProposalRemove.vue";
 import ButtonProposalWithdraw from "@/components/controls/ButtonProposalWithdraw.vue";
 import FormProposalEdit from "@/components/forms/FormProposalEdit.vue";
-import { useProposal } from "@/composables";
+import WalletIsNotReady from "@/components/warnings/WalletIsNotReady.vue";
+import { useConnectedWallet,useProposal } from "@/composables";
 
 const route = useRoute();
 
@@ -72,6 +79,7 @@ const proposalId = route.params.proposalId;
 
 const { title, cid, canPublish, canWithdraw, isPublished } = useProposal(proposalId);
 
+const { isReady } = useConnectedWallet();
 const { isLoading: isFundsLoading } = fundsQuery();
 const { isLoading: isProposalsPublishedLoading } = proposalsPublishedQuery();
 const { isLoading: isProposalsWithdrawnLoading } = proposalsWithdrawnQuery();
@@ -79,4 +87,6 @@ const { isLoading: isProposalsWithdrawnLoading } = proposalsWithdrawnQuery();
 const isLoading = computed(
   () => isFundsLoading.value || isProposalsPublishedLoading.value || isProposalsWithdrawnLoading.value,
 );
+
+const isEmpty = computed(() => !isReady.value);
 </script>

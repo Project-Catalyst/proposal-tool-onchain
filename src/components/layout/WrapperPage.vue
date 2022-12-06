@@ -15,19 +15,37 @@
     </h2>
 
     <div class="section">
-      <div
-        v-if="props.isLoading"
-        class="page-loading"
-      >
-        <icon-loading />
-      </div>
+      <template v-if="props.checkFirst === 'loading'">
+        <div
+          v-if="props.isLoading"
+          class="page-loading"
+        >
+          <icon-loading />
+        </div>
 
-      <slot
-        v-else-if="props.isEmpty"
-        name="empty"
-      />
+        <slot
+          v-else-if="props.isEmpty"
+          name="empty"
+        />
 
-      <slot v-else />
+        <slot v-else />
+      </template>
+
+      <template v-else>
+        <slot
+          v-if="props.isEmpty"
+          name="empty"
+        />
+
+        <div
+          v-else-if="props.isLoading"
+          class="page-loading"
+        >
+          <icon-loading />
+        </div>
+
+        <slot v-else />
+      </template>
     </div>
   </div>
 </template>
@@ -52,6 +70,11 @@ const props = defineProps({
   isEmpty: {
     type: Boolean,
     default: false,
+  },
+  checkFirst: {
+    type: String,
+    default: "loading",
+    validator: (value) => ["empty", "loading"].includes(value),
   },
 });
 

@@ -76,7 +76,7 @@ export default [
       type: "string",
       meta: {
         description: "Please enter a string",
-        required: 0,
+        required: 1,
       },
     },
     {

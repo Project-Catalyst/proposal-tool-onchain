@@ -24,7 +24,7 @@
   <div class="block">
     <proposal-schema-item
       v-for="item in props.challenge.proposalSchema"
-      :key="item.label"
+      :key="item.codeName"
       :item="item"
     />
   </div>

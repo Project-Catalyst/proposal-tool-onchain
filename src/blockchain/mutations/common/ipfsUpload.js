@@ -1,13 +1,13 @@
 import { useMutation } from "@tanstack/vue-query";
-import sjcl from "sjcl";
 import { Web3Storage } from "web3.storage";
+
+import { sha256 } from "@/utils";
 
 import { WEB3_STORAGE_ACCESS_TOKEN } from "../const";
 
 function uploadToIpfs(data) {
   const jsonString = JSON.stringify(data);
-  const jsonStringBitArray = sjcl.hash.sha256.hash(jsonString);
-  const jsonHash = sjcl.codec.hex.fromBits(jsonStringBitArray);
+  const jsonHash = sha256(jsonString);
 
   const blob = new Blob([jsonString], { type: "application/json" });
   const file = new File([blob], "assessments.json");

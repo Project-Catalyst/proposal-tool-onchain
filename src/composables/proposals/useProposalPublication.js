@@ -1,17 +1,37 @@
+import cloneDeep from "lodash/cloneDeep";
+import isEmpty from "lodash/isEmpty";
+
 import { proposalPublishMutation } from "@/blockchain/mutations";
 import { ipfsUploadMutation } from "@/blockchain/mutations/common";
 import { useNotifications, useProposals, useProposalsPublished, useTxSubmit } from "@/composables";
 import { useWalletStore } from "@/stores";
 import { chunkString } from "@/utils";
 
+function prepareValue(value, chunkValue = false) {
+  if (Array.isArray(value)) {
+    if (!isEmpty(value)) {
+      return value.map((v) => prepareValue(v, chunkValue));
+    }
+  } else if (typeof value === "boolean") {
+    return +value;
+  } else if (typeof value === "string") {
+    if (value !== "") {
+      if (chunkValue) {
+        return chunkString(value);
+      } else {
+        return value;
+      }
+    }
+  } else if (value !== null && value !== undefined) {
+    return value;
+  }
+}
+
 function prepareToPublication(proposal, chunkValues = false) {
   return Object.entries(proposal).reduce((acc, [key, value]) => {
-    if (typeof value === "boolean") {
-      acc[key] = +value;
-    } else if (typeof value === "string" && chunkValues) {
-      acc[key] = chunkString(value);
-    } else if (value !== null && value !== undefined) {
-      acc[key] = value;
+    const preparedValue = prepareValue(value, chunkValues);
+    if (preparedValue !== undefined) {
+      acc[key] = preparedValue;
     }
     return acc;
   }, {});
@@ -39,7 +59,7 @@ export default function useProposalPublication() {
       throw new Error("Proposal has already been published");
     }
 
-    const preparedProposal = prepareToPublication(proposal);
+    const preparedProposal = prepareToPublication(cloneDeep(proposal));
 
     walletStore.setIsBusy(true);
 

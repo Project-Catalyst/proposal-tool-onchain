@@ -6,7 +6,10 @@
       @reset="onReset"
     >
       <template #afterForm>
-        <div class="buttons">
+        <div
+          v-if="!isPublished"
+          class="buttons"
+        >
           <o-button
             variant="primary"
             native-type="submit"
@@ -41,19 +44,22 @@ const props = defineProps({
   },
 });
 
-const { instanceFormData, challenge, update } = useProposal(props.proposalId);
+const { instanceFormData, challenge, update, isPublished } = useProposal(props.proposalId);
 
-const formDataSaved = useStorage(
+const formDataSaved = !isPublished.value ? useStorage(
   `editProposal:${props.proposalId}`,
   instanceFormData.value,
   localStorage,
   { serializer: formStorageSerializer },
-);
+) : null;
+
 const formData = ref({});
 
 useSchemaForm(formData);
 
-const { schema, reset } = useProposalSchema(challenge.proposalSchema, instanceFormData.value);
+const { schema, reset } = useProposalSchema(
+  challenge.proposalSchema, instanceFormData.value, isPublished.value,
+);
 
 let SchemaForm = SchemaFormFactory([
   VeeValidatePlugin(),
@@ -62,22 +68,28 @@ let SchemaForm = SchemaFormFactory([
 const previousPage = usePreviousPage({ defaultLocation: { name: "proposals:my" } });
 
 async function onReset() {
-  reset();
-  SchemaForm = SchemaFormFactory([
-    VeeValidatePlugin(),
-  ]);
+  if (!isPublished.value) {
+    reset();
+    SchemaForm = SchemaFormFactory([
+      VeeValidatePlugin(),
+    ]);
+  }
 }
 
 function onSubmit() {
-  update(formData.value);
-  formDataSaved.value = null;
-  previousPage.go();
+  if (!isPublished.value) {
+    update(formData.value);
+    formDataSaved.value = null;
+    previousPage.go();
+  }
 }
 
 onMounted(() => {
-  for (const key of Object.keys(formDataSaved.value)) {
-    formData.value[key] = formDataSaved.value[key];
+  if (formDataSaved) {
+    for (const key of Object.keys(formDataSaved.value)) {
+      formData.value[key] = formDataSaved.value[key];
+    }
+    syncRef(formData, formDataSaved, { direction: "ltr" });
   }
-  syncRef(formData, formDataSaved, { direction: "ltr" });
 });
 </script>

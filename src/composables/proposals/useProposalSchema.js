@@ -3,13 +3,13 @@ import { markRaw, ref } from "vue";
 
 import { getSchemaField, validateSchema } from "@/utils/proposalSchema";
 
-export default function useProposalSchema(proposalSchema, proposalFormData) {
+export default function useProposalSchema(proposalSchema, proposalFormData, isPublished) {
   validateSchema(proposalSchema);
 
   const schema = [];
 
   for (const fieldDefinition of proposalSchema) {
-    const field = getSchemaField(fieldDefinition, proposalFormData);
+    const field = getSchemaField(fieldDefinition, proposalFormData, isPublished);
     if (field) {
       schema.push(field);
     }

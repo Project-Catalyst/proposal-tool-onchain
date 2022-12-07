@@ -42,7 +42,7 @@ export default function getSchemaField(fieldDefinition, proposalFormData, isPubl
     schemaField.type = "email";
   } else if (type === "string" || type === "integer" || type === "float" || type === "decimal") {
     if (meta?.validValues) {
-      schemaField.options = meta.validValues.map((value) => +value);
+      schemaField.options = meta.validValues.map((value) => (type === "string" ? value : +value));
       schemaField.multiple = meta.multiple === 1;
     } else {
       schemaField.min = is(meta?.min) ? +meta.min : undefined;

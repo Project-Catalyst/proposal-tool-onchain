@@ -3,7 +3,7 @@ import compact from "lodash/compact";
 import fill from "lodash/fill";
 import isInteger from "lodash/isInteger";
 
-import { stringOrArray } from "@/utils";
+import { is, stringOrArray } from "@/utils";
 
 import getComponent from "./getComponent";
 import getInitialValue from "./getInitialValue";
@@ -42,11 +42,11 @@ export default function getSchemaField(fieldDefinition, proposalFormData, isPubl
     schemaField.type = "email";
   } else if (type === "string" || type === "integer" || type === "float" || type === "decimal") {
     if (meta?.validValues) {
-      schemaField.options = meta.validValues;
+      schemaField.options = meta.validValues.map((value) => +value);
       schemaField.multiple = meta.multiple === 1;
     } else {
-      schemaField.min = meta?.min;
-      schemaField.max = meta?.max;
+      schemaField.min = is(meta?.min) ? +meta.min : undefined;
+      schemaField.max = is(meta?.max) ? +meta.max : undefined;
 
       if (!meta?.decimals && meta?.step) {
         schemaField.decimals = meta.step.toString().split(".")[1]?.length || 0;
@@ -57,7 +57,7 @@ export default function getSchemaField(fieldDefinition, proposalFormData, isPubl
       if (meta?.decimals && !meta?.step) {
         schemaField.step = +`0.${fill(new Array(meta.decimals - 1), 0).join("")}1`;
       } else {
-        schemaField.step = meta?.step;
+        schemaField.step = is(meta?.step) ? +meta.step : undefined;
       }
     }
 
@@ -65,9 +65,9 @@ export default function getSchemaField(fieldDefinition, proposalFormData, isPubl
       schemaField.zerofill = true;
     }
   } else if (type === "numrange") {
-    schemaField.min = meta?.min;
-    schemaField.max = meta?.max;
-    schemaField.step = meta?.step;
+    schemaField.min = is(meta?.min) ? +meta.min : undefined;
+    schemaField.max = is(meta?.max) ? +meta.max : undefined;
+    schemaField.step = is(meta?.step) ? +meta.step : undefined;
   } else if (type === "date" || type === "daterange") {
     const now = dayjs();
 

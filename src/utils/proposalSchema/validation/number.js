@@ -13,18 +13,18 @@ export default function getIntegerValidation(fieldDefinition, isInt) {
     const { min, max, step, validValues, multiple, minItems, maxItems, required } = meta;
     if (is(min) || is(max) || is(step)) {
       if (is(min)) {
-        validation = validation.min(min);
+        validation = validation.min(+min);
       }
 
       if (is(max)) {
-        validation = validation.max(max);
+        validation = validation.max(+max);
       }
 
       if (is(step)) {
         validation = validation.test(
           "divisibleBy",
           `value must be divisible by ${step}`,
-          (value) => !value || floatSafeRemainder(value, step) === 0,
+          (value) => !value || floatSafeRemainder(value, +step) === 0,
         );
       }
     } else if (is(validValues)) {

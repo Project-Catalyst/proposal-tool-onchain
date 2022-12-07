@@ -2,7 +2,6 @@ import dayjs from "dayjs";
 import flatten from "lodash/flatten";
 import isArray from "lodash/isArray";
 import isInteger from "lodash/isInteger";
-import isNumber from "lodash/isNumber";
 import isString from "lodash/isString";
 import uniq from "lodash/uniq";
 
@@ -71,6 +70,10 @@ const mapTypeValidMetaPropertyNames = {
 
 function isNumberBoolean(value) {
   return value === 0 || value === 1;
+}
+
+function isStringNumber(value) {
+  return typeof value === "string" && value !== "" && !isNaN(+value);
 }
 
 function validateMetaField(fieldDefinition) {
@@ -237,7 +240,7 @@ function validateMetaField(fieldDefinition) {
   // numeric type specific meta fields
   if (type === "integer" || type === "float" || type === "decimal") {
     const { min, max, step, validValues, multiple, minItems, maxItems } = meta;
-    const valueValidator = type === "integer" ? isInteger : isNumber;
+    const valueValidator = type === "integer" ? isInteger : isStringNumber;
 
     // 'min' must be an integer
     if (is(min) && !valueValidator(min)) {
@@ -250,7 +253,7 @@ function validateMetaField(fieldDefinition) {
     }
 
     // 'max' must be greater than 'min'
-    if (is(min) && is(max) && min >= max) {
+    if (is(min) && is(max) && +min >= +max) {
       throw new Error("meta.max must be greater than meta.min");
     }
 
@@ -259,9 +262,9 @@ function validateMetaField(fieldDefinition) {
       throw new Error("Invalid meta.step value");
     }
 
-    // 'validValues' must be an array of integers
+    // 'validValues' must be an array of numbers
     if (is(validValues) && (!isArray(validValues) || !validValues.every(valueValidator))) {
-      throw new Error("meta.validValues must be an array of integers");
+      throw new Error("meta.validValues must be an array of numbers");
     }
 
     // 'multiple' must be either 0 or 1
@@ -319,43 +322,43 @@ function validateMetaField(fieldDefinition) {
   if (type === "numrange") {
     const { min, max, step, minRange, maxRange } = meta;
 
-    // 'min' required and must be a number
-    if (!is(min) || !isNumber(min)) {
+    // 'min' required and must be a stringified number
+    if (!is(min) || !isStringNumber(min)) {
       throw new Error("Invalid meta.min value");
     }
 
-    // 'max' required and must be a number
-    if (!is(max) || !isNumber(max)) {
+    // 'max' required and must be a stringified number
+    if (!is(max) || !isStringNumber(max)) {
       throw new Error("Invalid meta.max value");
     }
 
     // 'max' must be greater than 'min'
-    if (min >= max) {
+    if (+min >= +max) {
       throw new Error("meta.max must be greater than meta.min");
     }
 
-    // 'step' must be a number
-    if (is(step) && !isNumber(step)) {
+    // 'step' must be a stringified number
+    if (is(step) && !isStringNumber(step)) {
       throw new Error("Invalid meta.step value");
     }
 
-    // 'minRange' must be a number
-    if (is(minRange) && !isNumber(minRange)) {
+    // 'minRange' must be a stringified number
+    if (is(minRange) && !isStringNumber(minRange)) {
       throw new Error("Invalid meta.minRange value");
     }
 
     // 'minRange' must be less than whole range
-    if (is(minRange) && minRange > Math.abs(max) - Math.abs(min)) {
+    if (is(minRange) && +minRange > Math.abs(max) - Math.abs(min)) {
       throw new Error("Invalid meta.minRange value");
     }
 
-    // 'maxRange' must be a number
-    if (is(maxRange) && !isNumber(maxRange)) {
+    // 'maxRange' must be a stringified number
+    if (is(maxRange) && !isStringNumber(maxRange)) {
       throw new Error("Invalid meta.maxRange value");
     }
 
     // 'maxRange' must be greater than 'minRange'
-    if (is(minRange) && is(maxRange) && minRange >= maxRange) {
+    if (is(minRange) && is(maxRange) && +minRange >= +maxRange) {
       throw new Error("meta.maxRange must be greater than meta.minRange");
     }
   }

@@ -6,7 +6,7 @@ import { useFundsStore } from "@/stores";
 export default function useIsFundSelected() {
   const { selectedFundHash: hash } = storeToRefs(useFundsStore());
 
-  const isFundSelected = computed(() => !!hash.value);
+  const isFundSelected = computed(() => !!hash.value && hash.value !== "unselected");
 
   return {
     isFundSelected,

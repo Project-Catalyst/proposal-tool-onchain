@@ -1,11 +1,13 @@
 import intersection from "lodash/intersection";
 import map from "lodash/map";
+import { storeToRefs } from "pinia";
 import { computed } from "vue";
 
 import { OPERABLE_STAGES } from "@/blockchain/const";
 import { fundsQuery } from "@/blockchain/queries";
 import { transformFundsList } from "@/blockchain/queries/utils";
 import { useTick } from "@/composables";
+import { useFundsStore } from "@/stores";
 
 function toHashMap(hashMap, fund) {
   hashMap[fund.fundHash] = fund;
@@ -13,6 +15,8 @@ function toHashMap(hashMap, fund) {
 }
 
 export default function useFunds() {
+  const { selectedFundHash } = storeToRefs(useFundsStore());
+
   const query = fundsQuery();
 
   const { tick } = useTick(60 * 1000);
@@ -60,6 +64,7 @@ export default function useFunds() {
     selectable,
     mapHashTitle,
     mapChallengeTitles,
+    selectedFundHash,
 
     exists,
     getByHash,

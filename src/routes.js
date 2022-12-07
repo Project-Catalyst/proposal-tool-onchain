@@ -1,6 +1,7 @@
 import PageChallenge from "@/pages/PageChallenge.vue";
 import PageChallenges from "@/pages/PageChallenges.vue";
 import PageFund from "@/pages/PageFund.vue";
+import PageFunds from "@/pages/PageFunds.vue";
 import PageHome from "@/pages/PageHome.vue";
 import PageNotFound from "@/pages/PageNotFound.vue";
 import PageProposalCreate from "@/pages/PageProposalCreate.vue";
@@ -14,6 +15,16 @@ const routes = [
     component: PageHome,
   },
 
+  {
+    path: "/funds",
+    name: "funds:list",
+    component: PageFunds,
+  },
+  {
+    path: "/funds/current",
+    name: "funds:current",
+    component: PageFund,
+  },
   {
     path: "/funds/:fundHash",
     name: "funds:fundDetails",

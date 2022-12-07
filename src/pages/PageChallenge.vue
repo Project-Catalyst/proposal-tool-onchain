@@ -21,7 +21,7 @@
             href="#"
             aria-current="page"
           >
-            {{ challenge.title }}
+            {{ challenge.id }}
           </a>
         </li>
       </ul>

@@ -5,7 +5,7 @@ import { useFund, useIsFundSelected } from "@/composables";
 
 export default function useFundParamPage() {
   const route = useRoute();
-  const fundHashParam = route.params.fundHash;
+  const fundHashParam = route.params.fundHash || "current";
 
   const { isFundSelected } = useIsFundSelected();
   const { exists: fundExists, hash: fundHash, genesis } = useFund(fundHashParam);

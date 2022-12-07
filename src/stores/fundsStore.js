@@ -20,7 +20,7 @@ export default defineStore(
       [selectedFundHash, query.isSuccess, funds.selectable],
       ([hash, isSuccess, selectable]) => {
         if (isSuccess) {
-          if (!keys(selectable).includes(hash)) {
+          if (hash !== "unselected" && !keys(selectable).includes(hash)) {
             selectedFundHash.value = "";
           }
           if (!selectedFundHash.value) {

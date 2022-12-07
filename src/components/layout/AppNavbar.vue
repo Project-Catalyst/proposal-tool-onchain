@@ -39,9 +39,27 @@
       </div>
 
       <div class="navbar-end">
-        <navbar-link :to="{name: 'funds:fundDetails', params: {fundHash: 'current'}}">
-          Current Fund
-        </navbar-link>
+        <o-dropdown
+          aria-role="list"
+          position="bottom-left"
+        >
+          <template #trigger="{ active }">
+            <navbar-dropdown
+              :is-active="active"
+              pages-name-prefix="funds:"
+            >
+              Funds
+            </navbar-dropdown>
+          </template>
+
+          <navbar-dropdown-item :to="{name: 'funds:list'}">
+            List
+          </navbar-dropdown-item>
+
+          <navbar-dropdown-item :to="{name: 'funds:current'}">
+            Current
+          </navbar-dropdown-item>
+        </o-dropdown>
 
         <navbar-link :to="{name: 'challenges', params: {fundHash: 'current'}}">
           Challenges
@@ -57,5 +75,7 @@
 
 <script setup>
 import ButtonWallet from "@/components/controls/ButtonWallet.vue";
+import NavbarDropdown from "@/components/layout/NavbarDropdown.vue";
+import NavbarDropdownItem from "@/components/layout/NavbarDropdownItem.vue";
 import NavbarLink from "@/components/layout/NavbarLink.vue";
 </script>

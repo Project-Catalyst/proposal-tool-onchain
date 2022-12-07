@@ -20,12 +20,36 @@
       }
     }
 
+    .dropdown-trigger .navbar-item {
+      color: $primary-invert;
+
+      &.is-active {
+        background-color: $primary-dark !important;
+      }
+    }
+
+    .dropdown.is-active .dropdown-trigger .navbar-item,
+    .dropdown .dropdown-trigger .navbar-item:hover {
+      cursor: pointer;
+      background-color: $primary-dark;
+    }
+
     a.dropdown-item {
       color: $text !important;
       background: none !important;
 
+      &.is-active {
+        color: $text !important;
+        background: none !important;
+      }
+
       &:hover {
         background-color: $white-ter !important;
+      }
+
+      &.is-active-route {
+        background-color: $primary !important;
+        color: $primary-invert !important;
       }
     }
   }

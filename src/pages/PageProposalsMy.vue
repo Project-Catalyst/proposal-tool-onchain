@@ -14,6 +14,13 @@
       <button-proposals-export v-if="count > 0" />
     </div>
 
+    <div
+      v-if="count > 0"
+      class="block buttons"
+    >
+      <button-proposals-clear />
+    </div>
+
     <template #empty>
       <wallet-is-not-ready />
     </template>
@@ -24,6 +31,7 @@
 import { computed } from "vue";
 
 import { fundsQuery, proposalsPublishedQuery, proposalsWithdrawnQuery } from "@/blockchain/queries";
+import ButtonProposalsClear from "@/components/controls/ButtonProposalsClear.vue";
 import ButtonProposalsExport from "@/components/controls/ButtonProposalsExport.vue";
 import ButtonProposalsImport from "@/components/controls/ButtonProposalsImport.vue";
 import TableMyProposals from "@/components/tables/TableMyProposals.vue";

@@ -34,6 +34,10 @@ export default function useProposals() {
     notifications.success("Proposal removed");
   }
 
+  function clear() {
+    proposalsStore.clear();
+  }
+
   function importFromJson(json, merge = true) {
     if (!merge) {
       proposalsStore.clear();
@@ -52,6 +56,7 @@ export default function useProposals() {
     create,
     update,
     remove,
+    clear,
     importFromJson,
   };
 }

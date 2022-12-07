@@ -11,7 +11,6 @@ export default defineConfig({
     alias: {
       "@": path.resolve(__dirname, "./src"),
       buffer: "rollup-plugin-node-polyfills/polyfills/buffer-es6",
-      crypto: "crypto-browserify",
     },
   },
   optimizeDeps: {
@@ -24,7 +23,7 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      plugins: [rollupNodePolyFill({ crypto: true })],
+      plugins: [rollupNodePolyFill()],
     },
   },
   plugins: [vue(), eslintPlugin()],

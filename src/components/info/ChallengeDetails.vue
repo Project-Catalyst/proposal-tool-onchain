@@ -23,7 +23,7 @@
 
   <div class="block">
     <proposal-schema-item
-      v-for="item in props.challenge.proposalSchema"
+      v-for="item in combinedSchema"
       :key="item.codeName"
       :item="item"
     />
@@ -42,6 +42,7 @@
 </template>
 
 <script setup>
+import mandatoryFields from "@/assets/schema/mandatoryFields.json";
 import ButtonProposalCreate from "@/components/controls/ButtonProposalCreate.vue";
 import ProposalSchemaItem from "@/components/info/ProposalSchemaItem.vue";
 import { stringOrArray } from "@/utils";
@@ -56,4 +57,6 @@ const props = defineProps({
     required: true,
   },
 });
+
+const combinedSchema = [...mandatoryFields, ...props.challenge.proposalSchema];
 </script>

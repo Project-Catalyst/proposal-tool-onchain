@@ -1,0 +1,72 @@
+[
+  {
+    "codeName": "id",
+    "label": "ID",
+    "type": "string",
+    "meta": {
+      "description": [
+        "MD5 hash of the concatenation of `title`, `author` and the curre",
+        "nt block hash at the moment of the creation of the proposal"
+      ],
+      "required": 1,
+      "auto": 1,
+      "hidden": 1,
+      "lengthExact": 32
+    }
+  },
+  {
+    "codeName": "title",
+    "label": "Proposal title",
+    "type": "string",
+    "meta": {
+      "description": "",
+      "required": 1,
+      "lengthMin": 8,
+      "lengthMax": 120
+    }
+  },
+  {
+    "codeName": "author",
+    "label": "Author name",
+    "type": "string",
+    "meta": {
+      "description": "Human readable author name",
+      "required": 1,
+      "lengthMin": 2,
+      "lengthMax": 32
+    }
+  },
+  {
+    "codeName": "creator",
+    "label": "Creator stake address",
+    "type": "string",
+    "meta": {
+      "description": "Stake address of the wallet used for proposal publication",
+      "required": 1,
+      "auto": 1,
+      "hidden": 1
+    }
+  },
+  {
+    "codeName": "createdAt",
+    "label": "Created at",
+    "type": "datetime",
+    "meta": {
+      "description": "Proposal creation date and time",
+      "required": 1,
+      "auto": 1,
+      "hidden": 1
+    }
+  },
+  {
+    "codeName": "updatedAt",
+    "label": "Updated at",
+    "type": "datetime",
+    "meta": {
+      "description": "Last proposal edit date and time",
+      "required": 1,
+      "auto": 1,
+      "hidden": 1
+    }
+  }
+]

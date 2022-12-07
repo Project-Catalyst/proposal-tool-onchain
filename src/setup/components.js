@@ -5,7 +5,6 @@ import ButtonsSave from "@/components/common/ButtonsSave.vue";
 import ButtonTxSubmit from "@/components/common/ButtonTxSubmit.vue";
 import IconLoading from "@/components/common/IconLoading.vue";
 import TooltipIf from "@/components/common/TooltipIf.vue";
-import VeeForm from "@/components/common/VeeForm.vue";
 import WrapperPage from "@/components/layout/WrapperPage.vue";
 
 export default function setupComponents(app) {
@@ -16,7 +15,6 @@ export default function setupComponents(app) {
   app.component("ButtonTxSubmit", ButtonTxSubmit);
   app.component("IconLoading", IconLoading);
   app.component("TooltipIf", TooltipIf);
-  app.component("VeeForm", VeeForm);
 
   app.component("WrapperPage", WrapperPage);
 }

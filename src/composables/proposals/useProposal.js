@@ -4,6 +4,7 @@ import flatten from "lodash/flatten";
 import isNil from "lodash/isNil";
 import { computed } from "vue";
 
+import mandatoryFields from "@/assets/schema/mandatoryFields.json";
 import {
   useChallenge,
   useFund,
@@ -26,7 +27,7 @@ export default function useProposal(proposalId) {
 
   const instanceFormData = computed(() => {
     const formData = {};
-    const proposalSchema = flatten(challenge.value.proposalSchema);
+    const proposalSchema = flatten([...mandatoryFields, ...challenge.value.proposalSchema]);
     const proposalData = cloneDeep(instance);
 
     for (const fieldName of Object.keys(proposalData)) {

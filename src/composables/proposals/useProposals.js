@@ -2,6 +2,7 @@ import map from "lodash/map";
 import { storeToRefs } from "pinia";
 import { computed } from "vue";
 
+import mandatoryFields from "@/assets/schema/mandatoryFields.json";
 import { useNotifications } from "@/composables";
 import { useProposalsStore } from "@/stores";
 import { cleanFormData } from "@/utils/proposalSchema";
@@ -20,12 +21,12 @@ export default function useProposals() {
   }
 
   async function create(formData, proposalSchema) {
-    await proposalsStore.create(cleanFormData(formData, proposalSchema));
+    await proposalsStore.create(cleanFormData(formData, [...mandatoryFields, ...proposalSchema]));
     notifications.success("New proposal created and saved in the local storage");
   }
 
   function update(formData, proposalSchema) {
-    proposalsStore.put(cleanFormData(formData, proposalSchema));
+    proposalsStore.put(cleanFormData(formData, [...mandatoryFields, ...proposalSchema]));
     notifications.success("Proposal updated");
   }
 

@@ -11,7 +11,8 @@
     }
 
     .navbar-end {
-      & > .navbar-item {
+      & > .navbar-item,
+      & > .dropdown {
         margin-right: 0.5rem;
 
         &:last-child {
@@ -25,6 +26,11 @@
 
       &.is-active {
         background-color: $primary-dark !important;
+      }
+
+      & > .icon {
+        margin-right: -0.5rem;
+        margin-left: 0.5rem;
       }
     }
 

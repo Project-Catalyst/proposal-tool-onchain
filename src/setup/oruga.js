@@ -8,6 +8,7 @@ import {
   OField,
   OIcon,
   OInput,
+  OInputitems,
   OLoading,
   OModal,
   ONotification,
@@ -29,6 +30,7 @@ export default function setupOruga(app) {
   app.component("OField", OField);
   app.component("OIcon", OIcon);
   app.component("OInput", OInput);
+  app.component("OInputitems", OInputitems);
   app.component("OLoading", OLoading);
   app.component("OModal", OModal);
   app.component("ONotification", ONotification);

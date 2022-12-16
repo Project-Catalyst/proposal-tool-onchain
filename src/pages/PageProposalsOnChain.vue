@@ -5,13 +5,22 @@
     :is-loading="isFundsLoading"
   >
     <div class="block">
-      PUBLISHED PROPOSALS
+      <select-funds v-model="fundsSelected" />
+    </div>
+
+    <div class="block">
+      <pre>{{ fundsSelected }}</pre>
     </div>
   </wrapper-page>
 </template>
 
 <script setup>
+import { ref } from "vue";
+
 import { fundsQuery } from "@/blockchain/queries";
+import SelectFunds from "@/components/controls/SelectFunds.vue";
 
 const { isLoading: isFundsLoading } = fundsQuery();
+
+const fundsSelected = ref([]);
 </script>

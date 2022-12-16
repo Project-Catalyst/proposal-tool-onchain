@@ -65,8 +65,18 @@
           Challenges
         </navbar-link>
 
-        <navbar-link :to="{name: 'proposals:my'}">
+        <navbar-link
+          exact
+          :to="{name: 'proposals:my'}"
+        >
           My Proposals
+        </navbar-link>
+
+        <navbar-link
+          exact
+          :to="{name: 'proposals:onChain'}"
+        >
+          On-Chain Proposals
         </navbar-link>
       </div>
     </div>

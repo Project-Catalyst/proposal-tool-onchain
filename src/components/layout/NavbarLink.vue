@@ -19,9 +19,15 @@ const props = defineProps({
     type: Object,
     required: true,
   },
+  exact: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const route = useRoute();
 
-const isActive = computed(() => route.name?.startsWith(props.to.name.split(":")[0]));
+const isActive = computed(() =>
+  props.exact ? route.name === props.to.name : route.name?.startsWith(props.to.name.split(":")[0]),
+);
 </script>

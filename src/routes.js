@@ -7,6 +7,7 @@ import PageNotFound from "@/pages/PageNotFound.vue";
 import PageProposalCreate from "@/pages/PageProposalCreate.vue";
 import PageProposalEdit from "@/pages/PageProposalEdit.vue";
 import PageProposalsMy from "@/pages/PageProposalsMy.vue";
+import PageProposalsOnChain from "@/pages/PageProposalsOnChain.vue";
 
 const routes = [
   {
@@ -47,6 +48,11 @@ const routes = [
     component: PageProposalCreate,
   },
 
+  {
+    path: "/proposals/on-chain",
+    name: "proposals:onChain",
+    component: PageProposalsOnChain,
+  },
   {
     path: "/proposals/my",
     name: "proposals:my",

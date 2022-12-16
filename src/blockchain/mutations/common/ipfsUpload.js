@@ -10,7 +10,7 @@ function uploadToIpfs(data) {
   const jsonHash = sha256(jsonString);
 
   const blob = new Blob([jsonString], { type: "application/json" });
-  const file = new File([blob], "assessments.json");
+  const file = new File([blob], "proposals.json");
 
   const client = new Web3Storage({ token: WEB3_STORAGE_ACCESS_TOKEN });
 

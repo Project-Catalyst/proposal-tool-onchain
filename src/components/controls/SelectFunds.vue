@@ -32,7 +32,7 @@ const emit = defineEmits({
 
 const { mapHashTitle: funds } = useFunds();
 
-const fundsAll = computed(() => Object.entries(funds.value).map(([hash, title]) => ({ id: hash, title })));
+const fundsAll = computed(() => Object.entries(funds.value).map(([hash, title]) => ({ hash, title })));
 
 const fundsFiltered = ref(fundsAll.value);
 

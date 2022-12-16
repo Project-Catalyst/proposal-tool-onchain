@@ -9,18 +9,21 @@
     </div>
 
     <div class="block">
-      <pre>{{ fundsSelected }}</pre>
+      <table-on-chain-proposals :fund-hashes="fundHashes" />
     </div>
   </wrapper-page>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
 import { fundsQuery } from "@/blockchain/queries";
 import SelectFunds from "@/components/controls/SelectFunds.vue";
+import TableOnChainProposals from "@/components/tables/TableOnChainProposals.vue";
 
 const { isLoading: isFundsLoading } = fundsQuery();
 
 const fundsSelected = ref([]);
+
+const fundHashes = computed(() => fundsSelected.value.map(({ hash }) => hash));
 </script>
